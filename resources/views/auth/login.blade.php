@@ -50,22 +50,22 @@
                 <a href="{{ url('/') }}" class="app-brand-link gap-2">
                   <span class="app-brand-logo demo">
                     <!-- (Você pode colocar o SVG do logo aqui) -->
-                    <svg
+                    {{-- <svg
                       width="25"
                       viewBox="0 0 25 42"
                       version="1.1"
                       xmlns="http://www.w3.org/2000/svg"
                       xmlns:xlink="http://www.w3.org/1999/xlink">
                       <!-- SVG paths aqui -->
-                    </svg>
+                    </svg> --}}
+                    <img src="/assets/img/logo/logo-g.png" alt="" width="250px">
                   </span>
-                  <span class="app-brand-text demo text-heading fw-bold">Sneat</span>
                 </a>
               </div>
               <!-- /Logo -->
 
-              <h4 class="mb-1">Welcome to Sneat! 👋</h4>
-              <p class="mb-6">Please sign-in to your account and start the adventure</p>
+              <h4 class="mb-1">Bem-vindo! 👋</h4>
+              <p class="mb-6">Faça login na sua conta para acessar a plataforma.</p>
 
               {{-- Mostrar erros de validação --}}
               @if ($errors->any())
@@ -95,7 +95,7 @@
                     class="form-control"
                     id="email"
                     name="email"
-                    placeholder="Enter your email"
+                    placeholder="Entre com seu email"
                     value="{{ old('email') }}"
                     required
                     autofocus
@@ -103,7 +103,7 @@
                 </div>
 
                 <div class="mb-6 form-password-toggle">
-                  <label class="form-label" for="password">Password</label>
+                  <label class="form-label" for="password">Senha</label>
                   <div class="input-group input-group-merge">
                     <input
                       type="password"
@@ -122,11 +122,11 @@
                   <div class="d-flex justify-content-between">
                     <div class="form-check mb-0">
                       <input class="form-check-input" type="checkbox" id="remember_me" name="remember" />
-                      <label class="form-check-label" for="remember_me"> Remember Me </label>
+                      <label class="form-check-label" for="remember_me">Lembrar-me</label>
                     </div>
                     @if (Route::has('password.request'))
                       <a href="{{ route('password.request') }}">
-                        <span>Forgot Password?</span>
+                        <span>Esqueceu a senha?</span>
                       </a>
                     @endif
                   </div>
@@ -138,9 +138,9 @@
               </form>
 
               <p class="text-center">
-                <span>New on our platform?</span>
+                <span>Novo em nossa plataforma?</span>
                 <a href="{{ route('register') }}">
-                  <span>Create an account</span>
+                  <span>Criar conta</span>
                 </a>
               </p>
             </div>

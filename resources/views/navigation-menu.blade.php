@@ -5,12 +5,16 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                    {{-- Logo do Jetstream --}}
+                    {{-- <a href="{{ route('dashboard') }}">
                         <x-application-mark class="block h-9 w-auto" />
-                    </a>
+                    </a> --}}
+
+                    {{-- Logo Smart --}}
+                    <img src="/assets/img/logo/logo-p.png" alt="" width="50px">
                 </div>
 
-                <!-- Navigation Links -->
+                <!-- Links da Barra de Navegação -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}

@@ -10,7 +10,6 @@ Route::get('/l', function () {
     return view('landing-page');
 });
 
-
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -20,3 +19,10 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/planos', function() {
+        return view('plans.index');
+    })->name('plans.index');
+});
+

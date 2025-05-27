@@ -8,5 +8,5 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-// Brasil API
+// Consulta CNPJ usando o CnpjController
 Route::post('/consulta-cnpj', [CnpjController::class, 'consultar']);

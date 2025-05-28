@@ -78,4 +78,13 @@ class User extends Authenticatable
         return $this->hasMany(Plan::class);
     }
 
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
+
+    public function isProvedor()
+    {
+        return $this->role === 'provedor';
+    }
 }

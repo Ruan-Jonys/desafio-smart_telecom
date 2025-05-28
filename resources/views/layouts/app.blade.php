@@ -68,8 +68,13 @@
 
             <!-- Page Content -->
             <main>
+                {{-- Components --}}
+                @isset($slot)
+                    {{ $slot }}
+                @endisset
+
+                {{-- Layouts --}}
                 @yield('content')
-                {{-- {{ $slot }} --}}
             </main>
         </div>
 

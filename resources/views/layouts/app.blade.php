@@ -49,6 +49,12 @@
 
         <!-- Config JS (Theme options, must come after core styles and helpers) -->
         <script src="/assets/js/config.js"></script>
+
+        <!-- DataTables -->
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
     </head>
     <body class="layout-menu-fixed layout-compact font-sans antialiased">
         <x-banner />
@@ -89,5 +95,16 @@
         <script src="../assets/vendor/js/menu.js"></script>
         <script src="../assets/js/main.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('#users-table').DataTable({
+                    responsive: true,
+                    dom: 'Bfrtip',
+                    buttons: [
+                        'copy', 'csv', 'pdf'
+                    ]
+                });
+            });
+        </script>
     </body>
 </html>

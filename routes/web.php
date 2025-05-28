@@ -36,7 +36,10 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
         return app(AdminController::class)->index();
     })->name('admin.dashboard');
 
-    Route::get('/users', [AdminUserController::class, 'index'])->name('admin.users');
+    // CRUD completo de usuários: index, edit, update, destroy
+    Route::resource('users', AdminUserController::class)
+        ->names('admin.users')
+        ->except(['show', 'create', 'store']);
 
     Route::get('/plans', [AdminPlanController::class, 'index'])->name('admin.plans');
 

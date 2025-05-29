@@ -20,19 +20,19 @@
                 <p class="text-2xl">{{ $adminCount }}</p>
             </div>
             <div class="bg-gray-100 rounded-lg p-4 text-center">
-                <h2 class="text-xl font-semibold">Planos</h2>
+                <h2 class="text-xl font-semibold">Planos Ativos</h2> {{-- Indicar que é só ativos --}}
                 <p class="text-2xl">{{ $totalPlans }}</p>
             </div>
         </div>
 
         {{-- Ações administrativas --}}
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <a href="{{ route('admin.users') }}" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-4 rounded-lg text-center">
+            <a href="{{ route('admin.users.index') }}" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-4 rounded-lg text-center">
                 Gerenciar Usuários
             </a>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <a href="{{ route('admin.plans') }}" class="bg-teal-600 hover:bg-teal-700 text-white font-semibold py-3 px-4 rounded-lg text-center">
+            <a href="{{ route('admin.plans.index') }}" class="bg-teal-600 hover:bg-teal-700 text-white font-semibold py-3 px-4 rounded-lg text-center">
                 Gerenciar Planos
             </a>
         </div>

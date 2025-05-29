@@ -41,6 +41,8 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
         ->names('admin.users')
         ->except(['show', 'create', 'store']);
 
-    Route::get('/plans', [AdminPlanController::class, 'index'])->name('admin.plans');
+        Route::resource('plans', AdminPlanController::class)
+        ->names('admin.plans')
+        ->except(['show', 'create', 'store']);
 
 });

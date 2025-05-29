@@ -33,6 +33,7 @@
                     <th style="border: 1px solid #ccc; padding: 8px; text-align: center; font-weight: 700;">Nome</th>
                     <th style="border: 1px solid #ccc; padding: 8px; text-align: center; font-weight: 700;">Velocidade</th>
                     <th style="border: 1px solid #ccc; padding: 8px; text-align: center; font-weight: 700;">Preço</th>
+                    <th style="border: 1px solid #ccc; padding: 8px; text-align: center; font-weight: 700;">Status</th>
                     <th style="border: 1px solid #ccc; padding: 8px; text-align: center; font-weight: 700;">Ação</th>
                 </tr>
             </thead>
@@ -47,6 +48,13 @@
                         </td>
                         <td style="border: 1px solid #ccc; padding: 8px; text-align: center;">{{ $plan->velocidade }} Mbps</td>
                         <td style="border: 1px solid #ccc; padding: 8px; text-align: center;">R$ {{ number_format($plan->preco, 2, ',', '.') }}</td>
+                        <td style="border: 1px solid #ccc; padding: 8px; text-align: center;">
+                            @if($plan->status)
+                                <span class="badge bg-success">Ativo</span>
+                            @else
+                                <span class="badge bg-secondary">Inativo</span>
+                            @endif
+                        </td>                        
                         <td style="border: 1px solid #ccc; padding: 8px; text-align: center;">
                             <button 
                                 wire:click.prevent="edit({{ $plan->id }})"

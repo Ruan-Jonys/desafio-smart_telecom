@@ -16,21 +16,22 @@ class AdminUserController extends Controller
 
     public function edit(User $user)
     {
-        return view('admin.users.edit', compact('user'));
+        return view('admin.users.modal', compact('user'));
     }
 
     public function update(Request $request, User $user)
     {
-        $validated = $request->validate([
+        $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255|unique:users,email,' . $user->id,
-            'role' => 'required|string',
+            'email' => 'required|email',
+            'role' => 'required|in:admin,provedor,membro',
         ]);
 
-        $user->update($validated);
+        $user->update($request->only('name', 'email', 'role'));
 
         return redirect()->route('admin.users.index')->with('success', 'Usuário atualizado com sucesso!');
     }
+
 
     public function destroy(User $user)
     {

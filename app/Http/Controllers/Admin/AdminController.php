@@ -23,7 +23,8 @@ class AdminController extends Controller
     {
         $totalUsers = User::count();
         $adminCount = User::where('role', 'admin')->count();
-        $totalPlans = Plan::count();
+        $totalPlans = Plan::where('status', 1)->count();
+        $plans = Plan::all();
 
         return view('admin.dashboard', compact('totalUsers', 'adminCount', 'totalPlans'));
     }

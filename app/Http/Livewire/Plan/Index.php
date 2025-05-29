@@ -12,7 +12,7 @@ class Index extends Component
     use WithPagination;
 
     public $planId;
-    public $nome, $descricao, $velocidade, $preco;
+    public $nome, $descricao, $velocidade, $preco, $status = true;
     public $isEdit = false;
 
     protected $rules = [
@@ -20,13 +20,13 @@ class Index extends Component
         'descricao' => 'nullable|string',
         'velocidade' => 'required|integer|min:1',
         'preco' => 'required|numeric|min:0',
+        'status' => 'required|boolean',
     ];
 
     public function create()
     {
         $this->resetInputFields();
         $this->isEdit = false;
-        
     }
 
     public function edit($id)
@@ -38,6 +38,7 @@ class Index extends Component
         $this->descricao = $plan->descricao;
         $this->velocidade = $plan->velocidade;
         $this->preco = $plan->preco;
+        $this->status = $plan->status;
 
         $this->isEdit = true;
     }
@@ -53,6 +54,7 @@ class Index extends Component
                 'descricao' => $this->descricao,
                 'velocidade' => $this->velocidade,
                 'preco' => $this->preco,
+                'status' => $this->status,
             ]);
             session()->flash('message', 'Plano atualizado!');
         } else {
@@ -63,6 +65,7 @@ class Index extends Component
                 'descricao' => $this->descricao,
                 'velocidade' => $this->velocidade,
                 'preco' => $this->preco,
+                'status' => $this->status,
             ]);
             session()->flash('message', 'Plano criado!');
         }
@@ -83,6 +86,7 @@ class Index extends Component
         $this->descricao = '';
         $this->velocidade = '';
         $this->preco = '';
+        $this->status = true;
     }
 
     public function render()

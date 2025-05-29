@@ -36,10 +36,19 @@
           @error('preco') <div class="text-danger small">{{ $message }}</div> @enderror
         </div>
         
+        <div class="mb-3">
+          <label class="form-label">Status</label>
+          <select wire:model.defer="status" class="form-control">
+              <option value="1">Ativo</option>
+              <option value="0">Inativo</option>
+          </select>
+          @error('status') <div class="text-danger small">{{ $message }}</div> @enderror
+        </div>
+      
       </div>
       
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
           Cancelar
         </button>
         <button type="button" class="btn btn-primary" wire:click="save">

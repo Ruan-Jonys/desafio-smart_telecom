@@ -13,6 +13,7 @@ class Plan extends Model
         'descricao',
         'velocidade',
         'preco',
+        'status',
         'team_id',
         'user_id'
     ];

@@ -30,6 +30,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name', // Nome
         'email', // Email
+        'role', // Role
         'cnpj', // CNPJ
         'address', // Endereço
         'neighborhood', // Bairro

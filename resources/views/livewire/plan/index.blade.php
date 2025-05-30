@@ -1,83 +1,88 @@
-<div class="card" style="max-width: 900px; margin: 20px auto;">
-    <h5 class="card-header text-center" style="font-weight: 900; font-size: 1.8rem; letter-spacing: 1px; padding: 1.2rem 0;">
-        Planos de Internet
-    </h5>
+<div class="card m-5">
 
-    <!-- ALERTA FLUTUANTE -->
-    @if (session()->has('message'))
-        <div 
-            class="alert alert-success alert-dismissible fade show d-flex align-items-center justify-content-between"
-            role="alert"
-            style="position: fixed; top: 20px; right: 20px; z-index: 1050; min-width: 250px;">
-            
-            <div class="d-flex align-items-center">
-                <i class="bi bi-check-circle-fill me-2"></i>
-                <span>{{ session('message') }}</span>
-            </div>
-
-            <button 
-                type="button" 
-                class="btn-close ms-2" 
-                data-bs-dismiss="alert" 
-                aria-label="Close"
-                style="transform: scale(0.4); padding-bottom: 6px">
-            </button>
+   <!-- ALERTA FLUTUANTE -->
+   @if (session()->has('message'))
+    <div 
+        class="alert alert-success alert-dismissible fade show d-flex align-items-center justify-content-between"
+        role="alert"
+        style="position: fixed; top: 20px; right: 20px; z-index: 1050; min-width: 250px;">
+        
+        <div class="d-flex align-items-center">
+            <i class="bi bi-check-circle-fill me-2"></i>
+            <span>{{ session('message') }}</span>
         </div>
+
+        <button 
+            type="button" 
+            class="btn-close ms-2" 
+            data-bs-dismiss="alert" 
+            aria-label="Close"
+            style="transform: scale(0.4); padding-bottom: 6px">
+        </button>
+    </div>
     @endif
     <!-- FIM ALERTA -->
 
-    <div class="table-responsive text-nowrap">
-        <table class="table" style="border-collapse: collapse; width: 100%; border: 1px solid #ccc !important; box-shadow: none !important;">
+
+    <h1 class="text-2xl font-bold mb-6 px-4 pt-4">Planos de Internet</h1>
+
+    <div class="table-responsive text-nowrap p-5">
+        <table class="table text-center">
             <thead>
                 <tr>
-                    <th style="border: 1px solid #ccc; padding: 8px; text-align: center; font-weight: 700;">Nome</th>
-                    <th style="border: 1px solid #ccc; padding: 8px; text-align: center; font-weight: 700;">Velocidade</th>
-                    <th style="border: 1px solid #ccc; padding: 8px; text-align: center; font-weight: 700;">Preço</th>
-                    <th style="border: 1px solid #ccc; padding: 8px; text-align: center; font-weight: 700;">Status</th>
-                    <th style="border: 1px solid #ccc; padding: 8px; text-align: center; font-weight: 700;">Ação</th>
+                    <th>Plano</th>
+                    <th>Velocidade</th>
+                    <th>Preço</th>
+                    <th>Status</th>
+                    <th>Ações</th>
                 </tr>
             </thead>
-            <tbody class="table-border-bottom-0" style="border: 1px solid #ccc;">
-                @foreach($plans as $plan)
+            <tbody class="table-border-bottom-0">
+                @forelse($plans as $plan)
                     <tr>
-                        <td style="border: 1px solid #ccc; padding: 8px; text-align: center;">
-                            <strong>{{ $plan->nome }}</strong>
+                        <td>
+                            <span class="fw-semibold">{{ $plan->nome }}</span>
                             @if($plan->descricao)
                                 <br><small class="text-muted">{{ $plan->descricao }}</small>
                             @endif
                         </td>
-                        <td style="border: 1px solid #ccc; padding: 8px; text-align: center;">{{ $plan->velocidade }} Mbps</td>
-                        <td style="border: 1px solid #ccc; padding: 8px; text-align: center;">R$ {{ number_format($plan->preco, 2, ',', '.') }}</td>
-                        <td style="border: 1px solid #ccc; padding: 8px; text-align: center;">
+                        <td>{{ $plan->velocidade }} Mbps</td>
+                        <td>R$ {{ number_format($plan->preco, 2, ',', '.') }}</td>
+                        <td>
                             @if($plan->status)
-                                <span class="badge bg-success">Ativo</span>
+                                <span class="badge bg-label-success">Ativo</span>
                             @else
-                                <span class="badge bg-secondary">Inativo</span>
+                                <span class="badge bg-label-secondary">Inativo</span>
                             @endif
-                        </td>                        
-                        <td style="border: 1px solid #ccc; padding: 8px; text-align: center;">
+                        </td>
+                        <td>
                             <button 
                                 wire:click.prevent="edit({{ $plan->id }})"
-                                class="btn btn-sm btn-primary me-2"
-                                title="Edit"
+                                class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-3 rounded-md transition me-2"
+                                title="Editar"
                                 data-bs-toggle="modal"
                                 data-bs-target="#planModal">
                                 <i class="bi bi-pencil-fill"></i>
                             </button>
+
                             <button 
                                 onclick="if(confirm('Tem certeza que vai excluir o plano {{ $plan->nome }}?')) @this.call('delete', {{ $plan->id }})" 
-                                class="btn btn-sm btn-danger" 
-                                title="Delete">
+                                class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-3 rounded-md transition"
+                                title="Excluir">
                                 <i class="bi bi-trash-fill"></i>
                             </button>
                         </td>
                     </tr>
-                @endforeach
+                @empty
+                    <tr>
+                        <td colspan="5" class="text-center text-muted">Nenhum plano registrado.</td>
+                    </tr>
+                @endforelse
             </tbody>
         </table>
     </div>
 
-    <div class="m-3">
+    <div class="m-3 text-center">
         {{ $plans->links() }}
     </div>
 

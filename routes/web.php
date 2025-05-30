@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminPlanController;
+use App\Http\Controllers\ContractController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -25,6 +26,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/planos', function() {
         return view('plans.index');
     })->name('plans');
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/geracao-contrato', [ContractController::class, 'showForm'])->name('contract.form');
+    Route::post('/geracao-contrato', [ContractController::class, 'generate'])->name('contract.generate');
 });
 
 Route::middleware(['auth'])->prefix('admin')->group(function () {

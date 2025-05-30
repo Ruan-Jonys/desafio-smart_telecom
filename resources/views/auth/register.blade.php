@@ -70,18 +70,18 @@
             {{-- Formulário de cadastro --}}
             <form id="registerForm" method="POST" action="{{ route('register') }}">
               @csrf
-
-              {{-- Dados Pessoais --}}
+       
+              <h5>Dados da Empresa:</h5>
+       
               <div id="step1" class="step-form visible">
-                <h5>Dados Pessoais:</h5>
 
                 <div class="mb-3">
-                  <label for="name" class="form-label">Nome Completo</label>
-                  <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Seu nome completo" required autofocus/>
+                  <label for="name" class="form-label">Nome da Empresa</label>
+                  <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Nome da empresa" required autofocus/>
                 </div>
 
                 <div class="mb-3">
-                  <label for="email" class="form-label">Email</label>
+                  <label for="email" class="form-label">Email de Contato</label>
                   <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="exemplo@email.com" required />
                 </div>
 
@@ -104,9 +104,7 @@
                 <button type="button" class="btn btn-primary d-grid w-100" onclick="nextStep()">Continuar</button>
               </div>
 
-              {{-- Dados da Empresa --}}
               <div id="step2" class="step-form hidden">
-                <h5>Dados da Empresa:</h5>
               
                 <div class="mb-3">
                   <label for="cnpj" class="form-label">CNPJ</label>

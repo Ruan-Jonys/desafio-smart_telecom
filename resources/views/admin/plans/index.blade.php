@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container mx-auto p-6">
-    <h1 class="text-3xl font-bold mb-6">Gerenciar Planos</h1>
+    <h1 class="text-3xl font-bold mb-6">Gerenciamento de Planos</h1>
 
     <table id="datatables" class="min-w-full bg-white rounded-lg shadow">
         <thead>

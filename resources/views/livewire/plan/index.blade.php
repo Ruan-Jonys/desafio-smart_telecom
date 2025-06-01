@@ -88,7 +88,7 @@
 
     <!-- Botão Flutuante -->
     <button
-        class="btn btn-primary rounded-circle"
+        class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-3 rounded-md transition me-2 rounded-circle"
         style="position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 8px rgba(0,0,0,0.3);"
         data-bs-toggle="modal"
         data-bs-target="#planModal"

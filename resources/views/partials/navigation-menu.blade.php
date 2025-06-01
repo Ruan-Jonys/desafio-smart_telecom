@@ -1,3 +1,27 @@
+<nav>
+@if (request()->routeIs('landing'))
+    {{-- NAVBAR DA LANDING --}}
+    <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center">
+                    <img src="/assets/img/logo/logo-p.png" alt="" width="50px">
+                    <h1 class="text-xl font-bold ml-4">Sistema de Provedores</h1>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <a href="#funcionalidades" class="text-gray-700 hover:text-blue-500">Funcionalidades</a>
+                    <a href="#contato" class="text-gray-700 hover:text-blue-500">Contato</a>
+                    
+                    <a href="{{ route('login') }}" class="inline-flex items-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded mr-2 transition">
+                        <i class="bi bi-box-arrow-in-right mr-2"></i> Login
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+@else
+
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -13,17 +37,18 @@
                 @if (auth()->check() && auth()->user()->isAdmin())
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                         <x-nav-link href="{{ route('admin.dashboard') }}" :active="request()->routeIs('admin.dashboard')">
-                            {{ __('Administração') }}
+                            {{ __('Dashboard') }}
+                        </x-nav-link>
+                        
+                        <x-nav-link href="{{ route('admin.users.index') }}" :active="request()->routeIs('admin.users.*')">
+                            {{ __('Gerenciamento de Usuários') }}
+                        </x-nav-link>
+                
+                        <x-nav-link href="{{ route('admin.plans.index') }}" :active="request()->routeIs('admin.plans.*')">
+                            {{ __('Gerenciamento de Planos') }}
                         </x-nav-link>
                     </div>
                 @endif
-
-                {{-- Dashboard Jetstream --}}
-                {{-- <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
-                </div> --}}
 
                 @if (auth()->check() && auth()->user()-> isProvedor())
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
@@ -242,4 +267,5 @@
             </div>
         </div>
     </div>
+    @endif
 </nav>

@@ -10,7 +10,6 @@ class AdminController extends Controller
 {
     public function __construct()
     {
-        // Garante que só admins acessem
         $this->middleware(function ($request, $next) {
             if (!auth()->user() || !auth()->user()->isAdmin()) {
                 abort(403, 'Acesso não autorizado.');
@@ -23,10 +22,28 @@ class AdminController extends Controller
     {
         $totalUsers = User::count();
         $adminCount = User::where('role', 'admin')->count();
-        $totalPlans = Plan::where('status', 1)->count();
-        $plans = Plan::all();
+        $provedorCount = User::where('role', 'provedor')->count();
 
-        return view('admin.dashboard', compact('totalUsers', 'adminCount', 'totalPlans'));
+        $totalActivePlans = Plan::where('status', 1)->count();
+        $totalInactivePlans = Plan::where('status', 0)->count();
+
+        // Planos por velocidade
+        $planSpeeds = Plan::select('velocidade')
+                          ->groupBy('velocidade')
+                          ->pluck('velocidade');
+
+        $planSpeedCounts = Plan::selectRaw('velocidade, COUNT(*) as count')
+                               ->groupBy('velocidade')
+                               ->pluck('count');
+
+        return view('admin.dashboard', compact(
+            'totalUsers', 
+            'adminCount', 
+            'provedorCount', 
+            'totalActivePlans', 
+            'totalInactivePlans', 
+            'planSpeeds', 
+            'planSpeedCounts'
+        ));
     }
 }
-

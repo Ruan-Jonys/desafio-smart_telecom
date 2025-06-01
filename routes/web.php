@@ -6,13 +6,13 @@ use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminPlanController;
 use App\Http\Controllers\ContractController;
 
-Route::get('/', function () {
+Route::get('/1', function () {
     return view('welcome');
 });
 
-Route::get('/l', function () {
+Route::get('/', function () {
     return view('landing-page');
-});
+})->name('landing');
 
 Route::middleware([
     'auth:sanctum', config('jetstream.auth_session'),'verified',

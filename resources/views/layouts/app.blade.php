@@ -34,6 +34,8 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" >
 
+        <!-- Tailwind CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
         <!-- Vendor CSS -->
         <link rel="stylesheet" href="/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
@@ -74,7 +76,7 @@
             @endif
 
             <!-- Page Content -->
-            <main>
+            <main class="pb-20">
                 {{-- Components --}}
                 @isset($slot)
                     {{ $slot }}
@@ -83,6 +85,8 @@
                 {{-- Layouts --}}
                 @yield('content')
             </main>
+
+            @include('partials.footer')
         </div>
 
         @stack('modals')

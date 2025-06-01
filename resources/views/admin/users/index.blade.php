@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container mx-auto p-6">
-  <h1 class="text-3xl font-bold mb-6">Gerenciar Usuários</h1>
+  <h1 class="text-3xl font-bold mb-6">Gerenciamento de Usuários</h1>
 
   @if(session('success'))
     <div class="alert alert-success">{{ session('success') }}</div>

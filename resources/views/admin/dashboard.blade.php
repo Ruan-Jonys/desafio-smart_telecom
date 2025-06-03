@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Dasboard Admin')
+
 @section('content')
 <div class="flex justify-center py-12 bg-gray-50 min-h-screen">
     <div class="w-full max-w-6xl bg-white rounded-lg shadow-xl p-10">
@@ -9,26 +11,35 @@
             Bem-vindo, <strong>{{ auth()->user()->name }}</strong>! Você está logado como <span class="text-blue-600 font-semibold">Administrador</span>.
         </p>
 
-        {{-- Estatísticas --}}
+        {{-- Botões de Acesso --}}
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-            <div class="bg-indigo-600 text-white rounded-lg p-4 shadow-md transform hover:scale-105 transition duration-300 flex items-center justify-between">
-                <i class="bi bi-people-fill text-3xl"></i>
-                <h2 class="text-md font-semibold text-center flex-1">Usuários</h2>
-                <p class="text-2xl font-bold">{{ $totalUsers }}</p>
-            </div>
+            <a href="{{ route('admin.users.index', ['role' => 'provedor']) }}" class="block">
+                <div class="bg-indigo-600 text-white rounded-lg p-6 shadow-md transform hover:scale-105 transition duration-300 flex items-center justify-between">
+                    <i class="bi bi-people-fill text-4xl"></i>
+                    <h2 class="text-xl font-semibold text-center flex-1">Usuários</h2>
+                    <p class="text-3xl font-bold">{{ $totalUsers }}</p>
+                </div>
+            </a>
 
-            <div class="bg-green-600 text-white rounded-lg p-4 shadow-md transform hover:scale-105 transition duration-300 flex items-center justify-between">
-                <i class="bi bi-person-badge-fill text-3xl"></i>
-                <h2 class="text-md font-semibold text-center flex-1">Administradores</h2>
-                <p class="text-2xl font-bold">{{ $adminCount }}</p>
-            </div>
+            <a href="{{ route('admin.users.index', ['role' => 'admin']) }}" class="block">
+                <div class="bg-green-600 text-white rounded-lg p-6 shadow-md transform hover:scale-105 transition duration-300 flex items-center justify-between">
+                    <i class="bi bi-person-badge-fill text-4xl"></i>
+                    <h2 class="text-xl font-semibold text-center flex-1">Administradores</h2>
+                    <p class="text-3xl font-bold">{{ $adminCount }}</p>
+                </div>
+            </a>
 
-            <div class="bg-yellow-500 text-white rounded-lg p-4 shadow-md transform hover:scale-105 transition duration-300 flex items-center justify-between">
-                <i class="bi bi-card-checklist text-3xl"></i>
-                <h2 class="text-md font-semibold text-center flex-1">Planos Ativos</h2>
-                <p class="text-2xl font-bold">{{ $totalActivePlans }}</p>
-            </div>
+            <a href="{{ route('admin.plans.index', ['status' => 'ativo']) }}" class="block">
+                <div class="bg-yellow-500 text-white rounded-lg p-6 shadow-md transform hover:scale-105 transition duration-300 flex items-center justify-between">
+                    <i class="bi bi-card-checklist text-4xl"></i>
+                    <h2 class="text-xl font-semibold text-center flex-1">Planos Ativos</h2>
+                    <p class="text-3xl font-bold">{{ $totalActivePlans }}</p>
+                </div>
+            </a>
         </div>
+
+        
+
 
         {{-- Gráficos --}}
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -72,7 +83,7 @@
     });
 
     // Gráfico: Planos por Status
-    const statusCtx = document.getElementById('statusChart').getContext('2d');
+    const statusCtx = document.getElementById('planStatusChart').getContext('2d');
     new Chart(statusCtx, {
         type: 'bar',
         data: {
@@ -86,16 +97,15 @@
         options: { responsive: true, scales: { y: { beginAtZero: true } } }
     });
 
-
     // Gráfico: Planos por Velocidade
     const planSpeedCtx = document.getElementById('planSpeedChart').getContext('2d');
     new Chart(planSpeedCtx, {
         type: 'bar',
         data: {
-            labels: {!! json_encode($planSpeeds) !!}, // ['50Mbps', '100Mbps', ...]
+            labels: {!! json_encode($planSpeeds) !!},
             datasets: [{
                 label: 'Planos',
-                data: {!! json_encode($planSpeedCounts) !!}, // [5, 10, ...]
+                data: {!! json_encode($planSpeedCounts) !!},
                 backgroundColor: '#818cf8'
             }]
         },

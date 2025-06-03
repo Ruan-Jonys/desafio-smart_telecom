@@ -1,7 +1,7 @@
 <div class="card m-5">
 
-   <!-- ALERTA FLUTUANTE -->
-   @if (session()->has('message'))
+    <!-- ALERTA FLUTUANTE -->
+    @if (session()->has('message'))
     <div 
         class="alert alert-success alert-dismissible fade show d-flex align-items-center justify-content-between"
         role="alert"
@@ -11,30 +11,32 @@
             <i class="bi bi-check-circle-fill me-2"></i>
             <span>{{ session('message') }}</span>
         </div>
-
-        <button 
-            type="button" 
-            class="btn-close ms-2" 
-            data-bs-dismiss="alert" 
-            aria-label="Close"
-            style="transform: scale(0.4); padding-bottom: 6px">
-        </button>
     </div>
     @endif
     <!-- FIM ALERTA -->
 
-
-    <h1 class="text-2xl font-bold mb-6 px-4 pt-4">Planos de Internet</h1>
+    <div class="flex justify-between items-center px-4 pt-4">
+        <h1 class="text-2xl font-bold">Planos de Internet</h1>
+        
+        <!-- Botão -->
+        <button
+            class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-md transition"
+            data-bs-toggle="modal"
+            data-bs-target="#planModal"
+            wire:click="create">
+            <i class="bi bi-plus-lg me-2"></i> Novo Plano
+        </button>
+    </div>
 
     <div class="table-responsive text-nowrap p-5">
-        <table class="table text-center">
+        <table id="datatables" class="table text-center">
             <thead>
                 <tr>
-                    <th>Plano</th>
-                    <th>Velocidade</th>
-                    <th>Preço</th>
-                    <th>Status</th>
-                    <th>Ações</th>
+                    <th class="text-center">Plano</th>
+                    <th class="text-center">Velocidade</th>
+                    <th class="text-center">Preço</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-center">Ações</th>
                 </tr>
             </thead>
             <tbody class="table-border-bottom-0">
@@ -75,7 +77,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="5" class="text-center text-muted">Nenhum plano registrado.</td>
+                        <td colspan="5" class="text-center">Nenhum plano registrado.</td>
                     </tr>
                 @endforelse
             </tbody>
@@ -85,16 +87,6 @@
     <div class="m-3 text-center">
         {{ $plans->links() }}
     </div>
-
-    <!-- Botão Flutuante -->
-    <button
-        class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-3 rounded-md transition me-2 rounded-circle"
-        style="position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 8px rgba(0,0,0,0.3);"
-        data-bs-toggle="modal"
-        data-bs-target="#planModal"
-        wire:click="create">
-        <i class="bi bi-plus-lg" style="font-size: 1.5rem;"></i>
-    </button>
 
     @include('livewire.plan.modal')
 </div>

@@ -5,28 +5,17 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminPlanController;
 use App\Http\Controllers\ContractController;
-
-Route::get('/1', function () {
-    return view('welcome');
-});
+use App\Http\Controllers\PlanController;
 
 Route::get('/', function () {
     return view('landing-page');
 })->name('landing');
 
-Route::middleware([
-    'auth:sanctum', config('jetstream.auth_session'),'verified',
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});
-
-Route::middleware(['auth'])->group(function () {
-    Route::get('/planos', function() {
-        return view('plans.index');
-    })->name('plans');
-});
+Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])
+    ->group(function () {
+        Route::get('/dashboard', [PlanController::class, 'index'])->name('dashboard');
+        Route::get('/planos', [PlanController::class, 'index'])->name('plans');
+    });
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/geracao-contrato', [ContractController::class, 'showForm'])->name('contract.form');

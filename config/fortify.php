@@ -142,18 +142,26 @@ return [
     | these features or you can even remove all of these if you need to.
     |
     */
+    'redirects' => [
+        'login' => '/planos',
+        'logout' => '/login',
+        'password-confirmation' => null,
+        'register' => '/planos',
+        'email-verification' => null,
+        'password-reset' => null,
+    ],
 
     'features' => [
         Features::registration(),
         Features::resetPasswords(),
-        // Features::emailVerification(),
+        Features::emailVerification(),
         Features::updateProfileInformation(),
         Features::updatePasswords(),
-        Features::twoFactorAuthentication([
-            'confirm' => true,
-            'confirmPassword' => true,
-            // 'window' => 0,
-        ]),
+        // Features::twoFactorAuthentication([
+        //     'confirm' => true,
+        //     'confirmPassword' => true,
+        //     // 'window' => 0,
+        // ]),
     ],
 
 ];

@@ -18,11 +18,22 @@ class AdminPlanController extends Controller
         });
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $plans = Plan::all();
-        return view('admin.plans.index', compact('plans'));
+        $status = $request->query('status');
+
+        $plans = Plan::query();
+
+        if (!is_null($status)) {
+            $statusValue = $status === 'ativo' ? 1 : 0;
+            $plans->where('status', $statusValue);
+        }
+
+        $plans = $plans->get();
+
+        return view('admin.plans.index', compact('plans', 'status'));
     }
+
 
     public function update(Request $request, Plan $plan)
     {

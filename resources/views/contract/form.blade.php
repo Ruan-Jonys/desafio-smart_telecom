@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Gerador de Contrato')
+
 @section('content')
 <div class="container mx-auto px-4 py-8">
     <h1 class="text-2xl font-bold mb-6">Gerar Contrato de Prestação de Serviço</h1>

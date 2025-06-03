@@ -8,10 +8,19 @@ use Illuminate\Http\Request;
 
 class AdminUserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::all();
-        return view('admin.users.index', compact('users'));
+        $role = $request->query('role');
+
+        $users = User::query();
+
+        if (!is_null($role)) {
+            $users->where('role', $role);
+        }
+
+        $users = $users->get();
+
+        return view('admin.users.index', compact('users', 'role'));
     }
 
     public function edit(User $user)

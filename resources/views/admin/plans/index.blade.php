@@ -1,8 +1,18 @@
 @extends('layouts.app')
 
+@section('title', 'Gerenciamento de Planos')
+
 @section('content')
+
 <div class="container mx-auto p-6">
     <h1 class="text-3xl font-bold mb-6">Gerenciamento de Planos</h1>
+
+    @if(!empty($status))
+        <div class="mb-4 p-3 bg-yellow-100 border border-yellow-300 text-yellow-800 rounded">
+            Filtro aplicado: <strong>{{ ucfirst($status) }}</strong>
+            <a href="{{ route('admin.plans.index') }}" class="ml-4 text-blue-500 hover:underline">Remover Filtro</a>
+        </div>
+    @endif
 
     <table id="datatables" class="min-w-full bg-white rounded-lg shadow">
         <thead>
@@ -33,7 +43,7 @@
                 </td>
                 <td class="py-2 px-4 border-b space-x-2 flex">
                     <button type="button"
-                        class="flex items-center justify-center gap-1 bg-blue-500 hover:bg-blue-600 text-white font-medium py-1 px-3 rounded shadow transition"
+                        class="flex items-center justify-center gap-1 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-3 rounded-md transition me-2"
                         style="height: 50px;"
                         data-bs-toggle="modal"
                         data-bs-target="#editPlanModal"
@@ -45,6 +55,7 @@
                         data-status="{{ $plan->status }}">
                         <i class="bi bi-pencil-fill"></i>
                     </button>
+
 
                     <form action="{{ route('admin.plans.destroy', $plan->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir este plano?');" class="inline-flex">
                         @csrf

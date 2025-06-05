@@ -29,22 +29,19 @@
                         <form method="POST" action="{{ route('password.email') }}" id="formAuthentication" class="mb-6">
                             @csrf
 
-                            <div class="mb-6">
-                                <label for="email" class="form-label">Email</label>
-                                <input 
-                                    id="email"
-                                    class="form-control" 
-                                    type="email" 
-                                    name="email" 
-                                    :value="old('email')" 
-                                    required 
-                                    autofocus 
-                                    autocomplete="username" 
-                                    placeholder="Digite seu e-mail"
-                                />
-                            </div>
+                            <input 
+                                id="email"
+                                class="form-control" 
+                                type="email" 
+                                name="email" 
+                                value="{{ old('email') }}" 
+                                required 
+                                autofocus 
+                                autocomplete="username" 
+                                placeholder="Digite seu e-mail"
+                            />
 
-                            <button type="submit" class="btn btn-primary d-grid w-100">
+                            <button type="submit" class="mt-2 btn btn-primary d-grid w-100" style="background: #02afd0;">
                                 Enviar link de redefinição
                             </button>
                         </form>

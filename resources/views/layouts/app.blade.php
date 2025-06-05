@@ -62,7 +62,7 @@
         <style>
             /* cores dos botões do DataTables */
             div.dataTables_wrapper div.dt-buttons button.btn-copy {
-                background-color: #0d6efd !important; /* azul */
+                background-color: #02afd0 !important; /* cor normal */
                 color: white !important;
                 font-weight: 600 !important;
                 padding: 0.5rem 1rem !important;
@@ -72,10 +72,11 @@
                 cursor: pointer !important;
                 transition: background-color 0.3s ease !important;
             }
+
             div.dataTables_wrapper div.dt-buttons button.btn-copy:hover {
-                background-color: #0b5ed7 !important;
+                background-color: #029cb7 !important; /* cor hover */
             }
-        
+
             div.dataTables_wrapper div.dt-buttons button.btn-excel {
                 background-color: #198754 !important; /* verde */
                 color: white !important;
@@ -124,7 +125,7 @@
             @endif
 
             <!-- Page Content -->
-            <main class="pb-20">
+            <main>
                 {{-- Components --}}
                 @isset($slot)
                     {{ $slot }}
@@ -137,7 +138,7 @@
             @include('partials.footer')
         </div>
 
-        @stack('modals')
+        @stack('modals')    
 
         @livewireScripts
             
@@ -158,57 +159,33 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
         <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
         <script>
-            $('#datatables').DataTable({
-                dom: 'Bfrtip',
-                buttons: [
-                    {
-                        extend: 'copy',
-                        text: '<i class="bi bi-clipboard"></i> Copiar',
-                        className: 'btn-copy'
-                    },
-                    {
-                        extend: 'excel',
-                        text: '<i class="bi bi-file-earmark-excel"></i> Excel',
-                        className: 'btn-excel'
-                    },
-                    {
-                        extend: 'pdf',
-                        text: '<i class="bi bi-file-earmark-pdf"></i> PDF',
-                        className: 'btn-pdf'
-                    }
-                ],
-                language: {
-                    decimal: ",",
-                    thousands: ".",
-                    processing: "Processando...",
-                    search: "Pesquisa:",
-                    lengthMenu: "Mostrar _MENU_ registros",
-                    info: "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-                    infoEmpty: "Mostrando 0 até 0 de 0 registros",
-                    infoFiltered: "(filtrado de _MAX_ registros no total)",
-                    infoPostFix: "",
-                    loadingRecords: "Carregando...",
-                    zeroRecords: "Nenhum registro encontrado",
-                    emptyTable: "Nenhum dado disponível na tabela",
-                    paginate: {
-                        first: "Primeiro",
-                        previous: "Anterior",
-                        next: "Próximo",
-                        last: "Último"
-                    },
-                    aria: {
-                        sortAscending: ": ativar para ordenar a coluna de forma crescente",
-                        sortDescending: ": ativar para ordenar a coluna de forma decrescente"
-                    },
-                    buttons: {
-                        copyTitle: 'Copiado para a área de transferência',
-                        copySuccess: {
-                            _: '%d linhas copiadas',
-                            1: '1 linha copiada'
+            $(document).ready(function () {
+                $('#datatables').DataTable({
+                    pageLength: 10,
+                    dom: 'Bfrtip',
+                    buttons: [
+                        { extend: 'copy', text: '<i class="bi bi-clipboard"></i> Copiar', className: 'btn-copy' },
+                        { extend: 'excel', text: '<i class="bi bi-file-earmark-excel"></i> Excel', className: 'btn-excel' },
+                        { extend: 'pdf', text: '<i class="bi bi-file-earmark-pdf"></i> PDF', className: 'btn-pdf' }
+                    ],
+                    language: {
+                        decimal: ",",
+                        thousands: ".",
+                        processing: "Processando...",
+                        search: "Pesquisa:",
+                        lengthMenu: "Mostrar _MENU_ registros",
+                        info: "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                        infoEmpty: "Mostrando 0 até 0 de 0 registros",
+                        infoFiltered: "(filtrado de _MAX_ registros no total)",
+                        paginate: {
+                            first: "Primeiro",
+                            previous: "Anterior",
+                            next: "Próximo",
+                            last: "Último"
                         }
                     }
-                }
+                });
             });
-        </script>
+        </script>                      
     </body>
 </html>

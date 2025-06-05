@@ -13,9 +13,21 @@ Route::get('/', function () {
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])
     ->group(function () {
-        Route::get('/dashboard', [PlanController::class, 'index'])->name('dashboard');
-        Route::get('/planos', [PlanController::class, 'index'])->name('plans');
+        
+        Route::get('/dashboard', function () {
+            $user = auth()->user();
+
+            if ($user->isAdmin()) {
+                return redirect()->route('admin.dashboard');
+            }
+
+            // Se for provedor ou outro papel
+            return app(\App\Http\Controllers\PlanController::class)->index();
+        })->name('dashboard');
+
+        Route::get('/planos', [\App\Http\Controllers\PlanController::class, 'index'])->name('plans');
     });
+
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/geracao-contrato', [ContractController::class, 'showForm'])->name('contract.form');

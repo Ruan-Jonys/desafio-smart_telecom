@@ -56,7 +56,7 @@
                 </div>
               </div>
 
-              <button type="button" class="btn btn-primary d-grid w-100" onclick="nextStep()">Continuar</button>
+              <button type="button" class="btn d-grid w-100 text-white" style="background-color: #02afd0; border-color: #02afd0;" onclick="nextStep()">Continuar</button>
             </div>
 
             <div id="step2" class="step-form hidden">
@@ -101,7 +101,7 @@
 
               <div class="d-flex justify-content-between">
                 <button type="button" class="btn btn-secondary" onclick="prevStep()">Voltar</button>
-                <button type="submit" class="btn btn-primary">Cadastrar</button>
+                <button type="submit" class="btn text-white" style="background-color: #02afd0; border-color: #02afd0;">Cadastrar</button>
               </div>
             </div>
           </form>

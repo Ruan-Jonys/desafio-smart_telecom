@@ -21,6 +21,14 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
             'photo' => ['nullable', 'mimes:jpg,jpeg,png', 'max:1024'],
+
+            // Validação dos campos extras
+            'cnpj' => ['nullable', 'string', 'max:20'],
+            'address' => ['nullable', 'string', 'max:255'],
+            'neighborhood' => ['nullable', 'string', 'max:255'],
+            'city' => ['nullable', 'string', 'max:255'],
+            'state' => ['nullable', 'string', 'max:255'],
+            'zipcode' => ['nullable', 'string', 'max:20'],
         ])->validateWithBag('updateProfileInformation');
 
         if (isset($input['photo'])) {
@@ -34,9 +42,17 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             $user->forceFill([
                 'name' => $input['name'],
                 'email' => $input['email'],
+                // Campos extras
+                'cnpj' => $input['cnpj'] ?? null,
+                'address' => $input['address'] ?? null,
+                'neighborhood' => $input['neighborhood'] ?? null,
+                'city' => $input['city'] ?? null,
+                'state' => $input['state'] ?? null,
+                'zipcode' => $input['zipcode'] ?? null,
             ])->save();
         }
     }
+
 
     /**
      * Update the given verified user's profile information.
@@ -49,8 +65,15 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             'name' => $input['name'],
             'email' => $input['email'],
             'email_verified_at' => null,
+            'cnpj' => $input['cnpj'] ?? null,
+            'address' => $input['address'] ?? null,
+            'neighborhood' => $input['neighborhood'] ?? null,
+            'city' => $input['city'] ?? null,
+            'state' => $input['state'] ?? null,
+            'zipcode' => $input['zipcode'] ?? null,
         ])->save();
 
         $user->sendEmailVerificationNotification();
     }
+
 }

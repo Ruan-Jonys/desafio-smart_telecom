@@ -20,10 +20,13 @@
         
         <!-- Botão -->
         <button
-            class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-md transition"
-            data-bs-toggle="modal"
-            data-bs-target="#planModal"
-            wire:click="create">
+        class="text-white font-semibold py-2 px-4 rounded-md transition"
+        data-bs-toggle="modal"
+        data-bs-target="#planModal"
+        wire:click="create"
+        style="background-color: #02afd0;"
+        onmouseover="this.style.backgroundColor='#029cb7'"
+        onmouseout="this.style.backgroundColor='#02afd0'">
             <i class="bi bi-plus-lg me-2"></i> Novo Plano
         </button>
     </div>
@@ -32,15 +35,15 @@
         <table id="datatables" class="table text-center">
             <thead>
                 <tr>
-                    <th class="text-center">Plano</th>
-                    <th class="text-center">Velocidade</th>
-                    <th class="text-center">Preço</th>
-                    <th class="text-center">Status</th>
-                    <th class="text-center">Ações</th>
+                    <th class="py-3 px-4 border-b text-center">Plano</th>
+                    <th class="py-3 px-4 border-b text-center">Velocidade</th>
+                    <th class="py-3 px-4 border-b text-center">Preço</th>
+                    <th class="py-3 px-4 border-b text-center">Status</th>
+                    <th class="py-3 px-4 border-b text-center">Ações</th>
                 </tr>
             </thead>
             <tbody class="table-border-bottom-0">
-                @forelse($plans as $plan)
+                @foreach($plans as $plan)
                     <tr>
                         <td>
                             <span class="fw-semibold">{{ $plan->nome }}</span>
@@ -59,11 +62,14 @@
                         </td>
                         <td>
                             <button 
-                                wire:click.prevent="edit({{ $plan->id }})"
-                                class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-3 rounded-md transition me-2"
-                                title="Editar"
-                                data-bs-toggle="modal"
-                                data-bs-target="#planModal">
+                            wire:click.prevent="edit({{ $plan->id }})"
+                            class="text-white font-semibold py-2 px-3 rounded-md transition me-2"
+                            title="Editar"
+                            data-bs-toggle="modal"
+                            data-bs-target="#planModal"
+                            style="background-color: #02afd0;"
+                            onmouseover="this.style.backgroundColor='#029cb7'"
+                            onmouseout="this.style.backgroundColor='#02afd0'">
                                 <i class="bi bi-pencil-fill"></i>
                             </button>
 
@@ -75,17 +81,9 @@
                             </button>
                         </td>
                     </tr>
-                @empty
-                    <tr>
-                        <td colspan="5" class="text-center">Nenhum plano registrado.</td>
-                    </tr>
-                @endforelse
+                @endforeach
             </tbody>
         </table>
-    </div>
-
-    <div class="m-3 text-center">
-        {{ $plans->links() }}
     </div>
 
     @include('livewire.plan.modal')

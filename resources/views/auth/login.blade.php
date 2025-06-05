@@ -77,7 +77,10 @@
                           </div>
 
                           <div class="mb-6">
-                              <button class="btn btn-primary d-grid w-100" type="submit">Login</button>
+                            <button class="btn d-grid w-100 text-white" type="submit" style="background-color: #02afd0; border-color: #02afd0;">
+                                Login
+                              </button>
+                              
                           </div>
                       </form>
 

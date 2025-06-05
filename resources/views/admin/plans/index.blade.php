@@ -17,56 +17,62 @@
     <table id="datatables" class="min-w-full bg-white rounded-lg shadow">
         <thead>
             <tr>
-                <th class="py-2 px-4 border-b">ID</th>
-                <th class="py-2 px-4 border-b">Nome</th>
-                <th class="py-2 px-4 border-b">Descrição</th>
-                <th class="py-2 px-4 border-b">Velocidade</th>
-                <th class="py-2 px-4 border-b">Preço</th>
-                <th class="py-2 px-4 border-b">Status</th>
-                <th class="py-2 px-4 border-b">Ações</th>
+                <th class="py-3 px-4 border-b text-center">ID</th>
+                <th class="py-3 px-4 border-b text-center">Nome</th>
+                <th class="py-3 px-4 border-b text-center">Descrição</th>
+                <th class="py-3 px-4 border-b text-center">Velocidade</th>
+                <th class="py-3 px-4 border-b text-center">Preço</th>
+                <th class="py-3 px-4 border-b text-center">Status</th>
+                <th class="py-3 px-4 border-b text-center">Ações</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($plans as $plan)
             <tr class="hover:bg-gray-100">
-                <td class="py-2 px-4 border-b">{{ $plan->id }}</td>
-                <td class="py-2 px-4 border-b">{{ $plan->nome }}</td>
-                <td class="py-2 px-4 border-b">{{ $plan->descricao }}</td>
-                <td class="py-2 px-4 border-b">{{ $plan->velocidade }} Mbps</td>
-                <td class="py-2 px-4 border-b">R$ {{ number_format($plan->preco, 2, ',', '.') }}</td>
-                <td class="py-2 px-4 border-b">
+                <td class="py-3 px-4 border-b text-center">{{ $plan->id }}</td>
+                <td class="py-3 px-4 border-b text-center">{{ $plan->nome }}</td>
+                <td class="py-3 px-4 border-b text-center">{{ $plan->descricao }}</td>
+                <td class="py-3 px-4 border-b text-center">{{ $plan->velocidade }} Mbps</td>
+                <td class="py-3 px-4 border-b text-center">R$ {{ number_format($plan->preco, 2, ',', '.') }}</td>
+                <td class="py-3 px-4 border-b text-center">
                     @if ($plan->status == 1)
                         <span class="text-green-600 font-semibold">Ativo</span>
                     @else
                         <span class="text-red-600 font-semibold">Inativo</span>
                     @endif
                 </td>
-                <td class="py-2 px-4 border-b space-x-2 flex">
-                    <button type="button"
-                        class="flex items-center justify-center gap-1 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-3 rounded-md transition me-2"
-                        style="height: 50px;"
-                        data-bs-toggle="modal"
-                        data-bs-target="#editPlanModal"
-                        data-id="{{ $plan->id }}"
-                        data-nome="{{ $plan->nome }}"
-                        data-descricao="{{ $plan->descricao }}"
-                        data-velocidade="{{ $plan->velocidade }}"
-                        data-preco="{{ $plan->preco }}"
-                        data-status="{{ $plan->status }}">
-                        <i class="bi bi-pencil-fill"></i>
-                    </button>
-
-
-                    <form action="{{ route('admin.plans.destroy', $plan->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir este plano?');" class="inline-flex">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit"
-                            class="flex items-center justify-center gap-1 bg-red-500 hover:bg-red-600 text-white font-medium py-1 px-3 rounded shadow transition"
-                            style="height: 50px;">
-                            <i class="bi bi-trash-fill"></i>
+                <td class="py-3 px-4 border-b">
+                    <div class="flex justify-center items-center gap-2">
+                        <button type="button"
+                            class="inline-flex items-center justify-center text-white font-semibold rounded-md transition"
+                            style="width: 40px; height: 40px; background-color: #02afd0;"
+                            data-bs-toggle="modal"
+                            data-bs-target="#editPlanModal"
+                            data-id="{{ $plan->id }}"
+                            data-nome="{{ $plan->nome }}"
+                            data-descricao="{{ $plan->descricao }}"
+                            data-velocidade="{{ $plan->velocidade }}"
+                            data-preco="{{ $plan->preco }}"
+                            data-status="{{ $plan->status }}"
+                            onmouseover="this.style.backgroundColor='#029cb7'"
+                            onmouseout="this.style.backgroundColor='#02afd0'">
+                            <i class="bi bi-pencil-fill text-lg"></i>
                         </button>
-                    </form>
+                
+                        <form action="{{ route('admin.plans.destroy', $plan->id) }}" method="POST"
+                              onsubmit="return confirm('Tem certeza que deseja excluir este plano?');"
+                              class="inline-flex items-center justify-center m-0 p-0">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit"
+                                class="inline-flex items-center justify-center bg-red-500 hover:bg-red-600 text-white font-medium rounded shadow transition"
+                                style="width: 40px; height: 40px;">
+                                <i class="bi bi-trash-fill text-lg"></i>
+                            </button>
+                        </form>
+                    </div>
                 </td>
+                
             </tr>
             @endforeach
         </tbody>

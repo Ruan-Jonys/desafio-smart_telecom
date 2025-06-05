@@ -1,1 +1,1 @@
-<img src="/assets/img/logo/logo-p.png" alt="">
+<a href="/"><img src="/assets/img/logo/logo-p.png" alt=""></a>

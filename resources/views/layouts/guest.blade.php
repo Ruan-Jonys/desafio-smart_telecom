@@ -35,6 +35,19 @@
     <script src="{{ asset('assets/js/config.js') }}"></script>
 
     @livewireStyles
+
+    <style>
+        .btn-custom {
+        background-color: #02afd0;
+        border-color: #02afd0;
+        color: white;
+        }
+
+        .btn-custom:hover {
+        background-color: #0295b3; /* Tom mais escuro no hover */
+        border-color: #0295b3;
+        }
+    </style>
 </head>
 <body>
     <div class="font-sans text-gray-900 antialiased">

@@ -8,21 +8,22 @@
         <h1 class="text-4xl font-bold mb-10 text-center">Painel de Administração</h1>
 
         <p class="text-gray-700 mb-12 text-center">
-            Bem-vindo, <strong>{{ auth()->user()->name }}</strong>! Você está logado como <span class="text-blue-600 font-semibold">Administrador</span>.
+            Bem-vindo, <strong>{{ auth()->user()->name }}</strong>! Você está logado como <span class="font-semibold" style="color: #02afd0">Administrador</span>.
         </p>
 
         {{-- Botões de Acesso --}}
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
             <a href="{{ route('admin.users.index', ['role' => 'provedor']) }}" class="block">
-                <div class="bg-indigo-600 text-white rounded-lg p-6 shadow-md transform hover:scale-105 transition duration-300 flex items-center justify-between">
+                <div class="text-white rounded-lg p-6 shadow-md transform hover:scale-105 transition duration-300 flex items-center justify-between" style="background-color: #02afd0;">
                     <i class="bi bi-people-fill text-4xl"></i>
-                    <h2 class="text-xl font-semibold text-center flex-1">Usuários</h2>
+                    <h2 class="text-xl font-semibold text-center flex-1">Provedores</h2>
                     <p class="text-3xl font-bold">{{ $totalUsers }}</p>
                 </div>
             </a>
+            
 
             <a href="{{ route('admin.users.index', ['role' => 'admin']) }}" class="block">
-                <div class="bg-green-600 text-white rounded-lg p-6 shadow-md transform hover:scale-105 transition duration-300 flex items-center justify-between">
+                <div class="text-white rounded-lg p-6 shadow-md transform hover:scale-105 transition duration-300 flex items-center justify-between" style="background-color: #4C808F">
                     <i class="bi bi-person-badge-fill text-4xl"></i>
                     <h2 class="text-xl font-semibold text-center flex-1">Administradores</h2>
                     <p class="text-3xl font-bold">{{ $adminCount }}</p>
@@ -30,7 +31,7 @@
             </a>
 
             <a href="{{ route('admin.plans.index', ['status' => 'ativo']) }}" class="block">
-                <div class="bg-yellow-500 text-white rounded-lg p-6 shadow-md transform hover:scale-105 transition duration-300 flex items-center justify-between">
+                <div class="text-white rounded-lg p-6 shadow-md transform hover:scale-105 transition duration-300 flex items-center justify-between" style="background-color: #005466">
                     <i class="bi bi-card-checklist text-4xl"></i>
                     <h2 class="text-xl font-semibold text-center flex-1">Planos Ativos</h2>
                     <p class="text-3xl font-bold">{{ $totalActivePlans }}</p>
@@ -75,7 +76,7 @@
             labels: ['Administradores', 'Provedores', 'Outros'],
             datasets: [{
                 data: [{{ $adminCount }}, {{ $provedorCount }}, {{ $totalUsers - $adminCount - $provedorCount }}],
-                backgroundColor: ['#4ade80', '#60a5fa', '#facc15'],
+                backgroundColor: ['#4C808F', '#02afd0', '#005466'],
                 borderWidth: 1
             }]
         },
@@ -91,7 +92,7 @@
             datasets: [{
                 label: 'Planos',
                 data: [{{ $totalActivePlans }}, {{ $totalInactivePlans }}],
-                backgroundColor: ['#34d399', '#f87171']
+                backgroundColor: ['#4C808F', '#005466']
             }]
         },
         options: { responsive: true, scales: { y: { beginAtZero: true } } }
@@ -106,7 +107,7 @@
             datasets: [{
                 label: 'Planos',
                 data: {!! json_encode($planSpeedCounts) !!},
-                backgroundColor: '#818cf8'
+                backgroundColor: '#005466'
             }]
         },
         options: { responsive: true, scales: { y: { beginAtZero: true } } }

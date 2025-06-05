@@ -45,6 +45,9 @@ class Index extends Component
 
     public function save()
     {
+        // Conversão antes da validação
+        $this->preco = str_replace(',', '.', $this->preco);
+
         $this->validate();
 
         if ($this->isEdit) {
@@ -93,7 +96,7 @@ class Index extends Component
     {
         $plans = Plan::where('user_id', Auth::id())
             ->where('team_id', Auth::user()->currentTeam->id)
-            ->paginate(10);
+            ->get();
 
         return view('livewire.plan.index', compact('plans'));
     }

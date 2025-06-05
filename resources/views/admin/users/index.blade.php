@@ -13,48 +13,53 @@
       </div>
   @endif
 
-
-
   <table id="datatables" class="min-w-full bg-white rounded-lg shadow">
     <thead>
       <tr>
-        <th class="py-2 px-4 border-b">ID</th>
-        <th class="py-2 px-4 border-b">Nome</th>
-        <th class="py-2 px-4 border-b">Email</th>
-        <th class="py-2 px-4 border-b">Perfil</th>
-        <th class="py-2 px-4 border-b">Ações</th>
+        <th class="py-3 px-4 border-b text-center">ID</th>
+        <th class="py-3 px-4 border-b text-center">Nome</th>
+        <th class="py-3 px-4 border-b text-center">Email</th>
+        <th class="py-3 px-4 border-b text-center">Perfil</th>
+        <th class="py-3 px-4 border-b text-center">Ações</th>
       </tr>
     </thead>
     <tbody>
       @foreach ($users as $user)
       <tr class="hover:bg-gray-100">
-        <td class="py-2 px-4 border-b">{{ $user->id }}</td>
-        <td class="py-2 px-4 border-b">{{ $user->name }}</td>
-        <td class="py-2 px-4 border-b">{{ $user->email }}</td>
-        <td class="py-2 px-4 border-b">{{ $user->role ?? 'N/A' }}</td>
-        <td class="py-2 px-4 border-b space-x-2 flex">
-          <button type="button" 
-          class="flex items-center justify-center gap-1 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-3 rounded-md transition me-2"
-          style="height: 50px;"
-          data-bs-toggle="modal"
-          data-bs-target="#editUserModal"
-          data-id="{{ $user->id }}"
-          data-name="{{ $user->name }}"
-          data-email="{{ $user->email }}"
-          data-role="{{ $user->role }}">
-          <i class="bi bi-pencil-fill"></i>
-      </button>
-          
-            <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir este usuário?');" class="inline-flex">
-              @csrf
-              @method('DELETE')
-              <button type="submit"
-                      class="flex items-center justify-center gap-1 bg-red-500 hover:bg-red-600 text-white font-medium py-1 px-3 rounded shadow transition"
-                      style="height: 50px;">
-                <i class="bi bi-trash-fill"></i>
+        <td class="py-3 px-4 border-b text-center">{{ $user->id }}</td>
+        <td class="py-3 px-4 border-b text-center">{{ $user->name }}</td>
+        <td class="py-3 px-4 border-b text-center">{{ $user->email }}</td>
+        <td class="py-3 px-4 border-b text-center">{{ $user->role ?? 'N/A' }}</td>
+        <td class="py-3 px-4 border-b">
+          <div class="flex justify-center items-center gap-2">
+              <button type="button" 
+                  class="inline-flex items-center justify-center text-white font-semibold rounded-md transition"
+                  style="width: 40px; height: 40px; background-color: #02afd0;"
+                  data-bs-toggle="modal"
+                  data-bs-target="#editUserModal"
+                  data-id="{{ $user->id }}"
+                  data-name="{{ $user->name }}"
+                  data-email="{{ $user->email }}"
+                  data-role="{{ $user->role }}"
+                  onmouseover="this.style.backgroundColor='#029cb7'"
+                  onmouseout="this.style.backgroundColor='#02afd0'">
+                  <i class="bi bi-pencil-fill text-lg"></i>
               </button>
-            </form>
-          </td>
+      
+              <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST"
+                    onsubmit="return confirm('Tem certeza que deseja excluir este usuário?');"
+                    class="inline-flex items-center justify-center m-0 p-0">
+                  @csrf
+                  @method('DELETE')
+                  <button type="submit"
+                      class="inline-flex items-center justify-center bg-red-500 hover:bg-red-600 text-white font-medium rounded shadow transition"
+                      style="width: 40px; height: 40px;">
+                      <i class="bi bi-trash-fill text-lg"></i>
+                  </button>
+              </form>
+          </div>
+      </td>
+                 
       </tr>
       @endforeach
     </tbody>

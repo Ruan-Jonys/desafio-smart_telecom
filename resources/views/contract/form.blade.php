@@ -32,7 +32,13 @@
                     <input type="text" name="city" id="city" class="form-control w-full rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500" required>
                 </div>
 
-                <button type="submit" class="btn btn-primary w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-md transition">Gerar Contrato</button>
+                <button type="submit" 
+                class="btn btn-primary w-full text-white font-semibold py-2 px-4 rounded-md transition" 
+                style="background-color: #02afd0;" 
+                onmouseover="this.style.backgroundColor='#029cb7'" 
+                onmouseout="this.style.backgroundColor='#02afd0'">
+                Gerar Contrato
+                </button>
             </form>
         </div>
 

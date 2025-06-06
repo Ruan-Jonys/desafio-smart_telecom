@@ -39,7 +39,7 @@ O sistema permite o cadastro, gerenciamento e administração de provedores de i
 - **ViaCEP** — preenchimento automático de endereço
 - **TailwindCSS** & **Bootstrap** (layout responsivo)
 - **DataTables** (listagens dinâmicas/exportação)
-- **MySQL** ou **SQLite** (configurável)
+- **MySQL** (configurável)
 
 ---
 

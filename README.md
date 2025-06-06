@@ -125,19 +125,6 @@ O sistema permite o cadastro, gerenciamento e administração de provedores de i
 
 ---
 
-## 🗄️ Backup do Banco de Dados
-
-> **Observação importante:**  
-> Caso deseje restaurar o banco já populado manualmente, utilize o arquivo `dump.sql` presente na raiz do projeto:
-
-```bash
-mysql -u seu_usuario -p smart_telecom < dump.sql
-```
-- Certifique-se de que o banco de dados (`smart_telecom`) já existe e está vazio antes de importar.
-- Após importar, os usuários de teste estarão disponíveis normalmente.
-
----
-
 ## 📄 Licença
 
 Este projeto utiliza o [MIT License](https://opensource.org/licenses/MIT).

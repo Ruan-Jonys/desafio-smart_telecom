@@ -5,14 +5,17 @@
 @section('content')
 <div class="flex justify-center py-12 bg-gray-50 min-h-screen">
     <div class="w-full max-w-6xl bg-white rounded-lg shadow-xl p-10">
+        {{-- Título do painel --}}
         <h1 class="text-4xl font-bold mb-10 text-center">Painel de Administração</h1>
 
+        {{-- Saudação ao usuário logado --}}
         <p class="text-gray-700 mb-12 text-center">
             Bem-vindo, <strong>{{ auth()->user()->name }}</strong>! Você está logado como <span class="font-semibold" style="color: #02afd0">Administrador</span>.
         </p>
 
-        {{-- Botões de Acesso --}}
+        {{-- Botões de Acesso Rápido para áreas administrativas --}}
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            {{-- Acesso à lista de provedores --}}
             <a href="{{ route('admin.users.index', ['role' => 'provedor']) }}" class="block">
                 <div class="text-white rounded-lg p-6 shadow-md transform hover:scale-105 transition duration-300 flex items-center justify-between" style="background-color: #02afd0;">
                     <i class="bi bi-people-fill text-4xl"></i>
@@ -20,8 +23,7 @@
                     <p class="text-3xl font-bold">{{ $totalUsers }}</p>
                 </div>
             </a>
-            
-
+            {{-- Acesso à lista de administradores --}}
             <a href="{{ route('admin.users.index', ['role' => 'admin']) }}" class="block">
                 <div class="text-white rounded-lg p-6 shadow-md transform hover:scale-105 transition duration-300 flex items-center justify-between" style="background-color: #4C808F">
                     <i class="bi bi-person-badge-fill text-4xl"></i>
@@ -29,7 +31,7 @@
                     <p class="text-3xl font-bold">{{ $adminCount }}</p>
                 </div>
             </a>
-
+            {{-- Acesso à lista de planos ativos --}}
             <a href="{{ route('admin.plans.index', ['status' => 'ativo']) }}" class="block">
                 <div class="text-white rounded-lg p-6 shadow-md transform hover:scale-105 transition duration-300 flex items-center justify-between" style="background-color: #005466">
                     <i class="bi bi-card-checklist text-4xl"></i>
@@ -39,24 +41,19 @@
             </a>
         </div>
 
-        
-
-
-        {{-- Gráficos --}}
+        {{-- Gráficos estatísticos --}}
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {{-- Distribuição de Usuários por Tipo --}}
+            {{-- Gráfico: Distribuição de Usuários por Tipo --}}
             <div class="bg-gray-100 rounded-lg p-6 shadow-md">
                 <h3 class="text-xl font-semibold mb-4">Usuários por Tipo</h3>
                 <canvas id="userTypeChart" height="200"></canvas>
             </div>
-
-            {{-- Planos por Status --}}
+            {{-- Gráfico: Planos por Status --}}
             <div class="bg-gray-100 rounded-lg p-6 shadow-md">
                 <h3 class="text-xl font-semibold mb-4">Planos por Status</h3>
                 <canvas id="planStatusChart" height="200"></canvas>
             </div>
-
-            {{-- Planos por Velocidade --}}
+            {{-- Gráfico: Planos por Velocidade --}}
             <div class="bg-gray-100 rounded-lg p-6 shadow-md">
                 <h3 class="text-xl font-semibold mb-4">Planos por Velocidade</h3>
                 <canvas id="planSpeedChart" height="200"></canvas>
@@ -65,10 +62,10 @@
     </div>
 </div>
 
-{{-- Chart.js --}}
+{{-- Inclusão da biblioteca Chart.js --}}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    // Gráfico: Distribuição de usuários por tipo
+    // Gráfico: Distribuição de usuários por tipo (Doughnut)
     const userTypeCtx = document.getElementById('userTypeChart').getContext('2d');
     new Chart(userTypeCtx, {
         type: 'doughnut',
@@ -83,7 +80,7 @@
         options: { responsive: true, cutout: '70%' }
     });
 
-    // Gráfico: Planos por Status
+    // Gráfico: Planos por Status (Barra)
     const statusCtx = document.getElementById('planStatusChart').getContext('2d');
     new Chart(statusCtx, {
         type: 'bar',
@@ -98,7 +95,7 @@
         options: { responsive: true, scales: { y: { beginAtZero: true } } }
     });
 
-    // Gráfico: Planos por Velocidade
+    // Gráfico: Planos por Velocidade (Barra)
     const planSpeedCtx = document.getElementById('planSpeedChart').getContext('2d');
     new Chart(planSpeedCtx, {
         type: 'bar',

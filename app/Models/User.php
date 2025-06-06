@@ -12,79 +12,84 @@ use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Auth\Passwords\CanResetPassword as CanResetPasswordTrait;
 
+// Modelo User estende Authenticatable e implementa CanResetPassword
 class User extends Authenticatable implements CanResetPassword 
 {
-    use HasApiTokens;
-    use HasFactory;
-    use HasProfilePhoto;
-    use HasTeams;
-    use Notifiable;
-    use TwoFactorAuthenticatable;
-    use CanResetPasswordTrait; 
+    // Traits que adicionam funcionalidades ao modelo
+    use HasApiTokens; // Suporte a tokens de API (Laravel Sanctum)
+    use HasFactory; // Suporte a factories para testes
+    use HasProfilePhoto; // Suporte a foto de perfil (Jetstream)
+    use HasTeams; // Suporte a times/equipes (Jetstream)
+    use Notifiable; // Suporte a notificações
+    use TwoFactorAuthenticatable; // Suporte a autenticação 2FA (Fortify)
+    use CanResetPasswordTrait; // Suporte a reset de senha
 
     /**
-     * The attributes that are mass assignable.
+     * Atributos que podem ser atribuídos em massa (fillable)
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'name', // Nome
-        'email', // Email
-        'role', // Role
-        'cnpj', // CNPJ
+        'name', // Nome do usuário
+        'email', // Email do usuário
+        'role', // Papel do usuário (admin, provedor, etc)
+        'cnpj', // CNPJ do provedor
         'address', // Endereço
         'neighborhood', // Bairro
         'zipcode', // CEP
         'city', // Cidade
         'state', // Estado
         'password', // Senha
-        'profile_photo_path',
+        'profile_photo_path', // Caminho da foto de perfil
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
+     * Atributos ocultos para arrays/JSON (hidden)
      *
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
-        'remember_token',
-        'two_factor_recovery_codes',
-        'two_factor_secret',
+        'password', // Nunca expor a senha
+        'remember_token', // Token lembrar sessão
+        'two_factor_recovery_codes', // Códigos de recuperação 2FA
+        'two_factor_secret', // Segredo do 2FA
     ];
 
     /**
-     * The accessors to append to the model's array form.
+     * Atributos adicionais para o array (appends)
      *
      * @var array<int, string>
      */
     protected $appends = [
-        'profile_photo_url',
+        'profile_photo_url', // URL da foto de perfil (gerado por accessor do Jetstream)
     ];
 
     /**
-     * Get the attributes that should be cast.
+     * Cast de tipos automáticos de atributos
      *
      * @return array<string, string>
      */
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'email_verified_at' => 'datetime', // Converte para objeto DateTime
+            'password' => 'hashed', // Aplica hash automaticamente ao salvar
         ];
     }
 
+    //Relacionamento: Um usuário pode ter vários planos
     public function plans()
     {
         return $this->hasMany(Plan::class);
     }
 
+    // Verifica se o usuário é administrador
     public function isAdmin()
     {
         return $this->role === 'admin';
     }
 
+    //Verifica se o usuário é provedor
     public function isProvedor()
     {
         return $this->role === 'provedor';

@@ -6,6 +6,7 @@
 <div class="container mx-auto p-6">
   <h1 class="text-3xl font-bold mb-6">Gerenciamento de Usuários</h1>
 
+  {{-- Exibe o filtro de perfil aplicado, se houver --}}
   @if(!empty($role))
       <div class="mb-4 p-3 bg-yellow-100 border border-yellow-300 text-yellow-800 rounded">
           Filtro aplicado: <strong>{{ ucfirst($role) }}</strong>
@@ -13,6 +14,7 @@
       </div>
   @endif
 
+  {{-- Tabela de usuários --}}
   <table id="datatables" class="min-w-full bg-white rounded-lg shadow">
     <thead>
       <tr>
@@ -24,6 +26,7 @@
       </tr>
     </thead>
     <tbody>
+      {{-- Itera sobre cada usuário e exibe na tabela --}}
       @foreach ($users as $user)
       <tr class="hover:bg-gray-100">
         <td class="py-3 px-4 border-b text-center">{{ $user->id }}</td>
@@ -32,6 +35,7 @@
         <td class="py-3 px-4 border-b text-center">{{ $user->role ?? 'N/A' }}</td>
         <td class="py-3 px-4 border-b">
           <div class="flex justify-center items-center gap-2">
+              {{-- Botão para editar usuário (abre modal) --}}
               <button type="button" 
                   class="inline-flex items-center justify-center text-white font-semibold rounded-md transition"
                   style="width: 40px; height: 40px; background-color: #02afd0;"
@@ -46,6 +50,7 @@
                   <i class="bi bi-pencil-fill text-lg"></i>
               </button>
       
+              {{-- Botão para excluir usuário (abre toast de confirmação) --}}
               <button type="button"
                   class="inline-flex items-center justify-center text-white font-semibold rounded-md transition"
                   style="width: 40px; height: 40px; background-color: #dc3545;"
@@ -64,10 +69,11 @@
   </table>
 </div>
 
+{{-- Inclui o modal de edição de usuário --}}
 @include('admin.users.modal')
 @endsection
 
-<!-- Toast de Confirmação -->
+<!-- Toast de Confirmação para exclusão de usuário -->
 <div class="toast-container position-fixed top-25 end-0 p-3" style="top: 20%; z-index: 1050;">
   <div id="confirmToast" class="toast bg-white text-dark" role="alert" aria-live="assertive" aria-atomic="true">
       <div class="toast-header bg-white text-dark">
@@ -87,7 +93,7 @@
   </div>
 </div>
   
-<!-- Toast de Sucesso -->
+<!-- Toast de Sucesso após ação -->
 @if (session()->has('success'))
 <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1050;">
   <div class="toast align-items-center text-white bg-success border-0 show" role="alert" aria-live="assertive" aria-atomic="true">
@@ -104,10 +110,11 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    // -------------------- MODAL DE EDIÇÃO --------------------
+    // MODAL DE EDIÇÃO
     var editUserModal = document.getElementById('editUserModal');
     if (editUserModal) {
       editUserModal.addEventListener('show.bs.modal', function (event) {
+        // Recupera os dados do botão que abriu o modal
         var button = event.relatedTarget;
 
         var id = button.getAttribute('data-id');
@@ -115,18 +122,21 @@
         var email = button.getAttribute('data-email');
         var role = button.getAttribute('data-role');
 
+        // Preenche os campos do modal com os dados do usuário selecionado
         editUserModal.querySelector('#modalName').value = name;
         editUserModal.querySelector('#modalEmail').value = email;
         editUserModal.querySelector('#modalRole').value = role;
 
+        // Atualiza a action do formulário para enviar para o usuário correto
         var form = editUserModal.querySelector('#editUserForm');
         form.action = `/admin/users/${id}`;
       });
     }
 
-    // -------------------- TOAST DE CONFIRMAÇÃO DE EXCLUSÃO --------------------
+    //TOAST DE CONFIRMAÇÃO DE EXCLUSÃO
     let deleteUserId = null;
 
+    // Exibe o toast de confirmação e armazena o ID do usuário a ser excluído
     window.showConfirmToast = function(id, name) {
       deleteUserId = id;
       document.getElementById('confirmMessage').innerText = `Deseja excluir o usuário "${name}"?`;
@@ -135,6 +145,7 @@
       new bootstrap.Toast(toastEl).show();
     }
 
+    // Esconde o toast de confirmação
     window.hideConfirmToast = function() {
       const toastEl = document.getElementById('confirmToast');
       const toast = bootstrap.Toast.getInstance(toastEl);
@@ -143,6 +154,7 @@
       }
     }
 
+    // Confirma a exclusão e cria dinamicamente um formulário para enviar via POST (delete)
     window.confirmDeletion = function() {
       hideConfirmToast();
 
@@ -150,11 +162,13 @@
       form.method = 'POST';
       form.action = `/admin/users/${deleteUserId}`;
 
+      // Adiciona o token CSRF
       const token = document.createElement('input');
       token.type = 'hidden';
       token.name = '_token';
       token.value = '{{ csrf_token() }}';
 
+      // Adiciona o spoof do método DELETE
       const method = document.createElement('input');
       method.type = 'hidden';
       method.name = '_method';

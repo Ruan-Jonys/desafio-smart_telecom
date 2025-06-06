@@ -4,6 +4,7 @@
 
 @section('content')
 
+    {{-- Renderiza o componente Livewire --}}
     @livewire('plan.index')
 
 @endsection

@@ -4,16 +4,16 @@
       <div class="card px-sm-6 px-0">
         <div class="card-body">
 
-          {{-- Logo --}}
+          {{-- Logo centralizado da plataforma --}}
           <div class="app-brand justify-content-center mb-4">
             <x-authentication-card-logo/>
           </div>
 
-          {{-- Título e descrição --}}
+          {{-- Título e descrição da tela de cadastro --}}
           <h4 class="mb-1">Cadastre-se</h4>
           <p class="mb-6">e acompanhe de perto a nossa consultoria Smart!</p>
 
-          {{-- Exibição de erros --}}
+          {{-- Exibição dos erros de validação --}}
           @if ($errors->any())
             <div class="alert alert-danger mb-4">
               <ul class="mb-0">
@@ -24,11 +24,13 @@
             </div>
           @endif
 
+          {{-- Formulário de cadastro, dividido em dois passos --}}
           <form id="registerForm" method="POST" action="{{ route('register') }}">
             @csrf
 
             <h5>Dados da Empresa:</h5>
 
+            {{-- Passo 1: Nome, Email, Senha --}}
             <div id="step1" class="step-form visible">
               <div class="mb-3">
                 <label for="name" class="form-label">Nome da Empresa</label>
@@ -56,9 +58,11 @@
                 </div>
               </div>
 
+              {{-- Botão para avançar para a próxima etapa --}}
               <button type="button" class="btn d-grid w-100 text-white" style="background-color: #02afd0; border-color: #02afd0;" onclick="nextStep()">Continuar</button>
             </div>
 
+            {{-- Passo 2: CNPJ, Razão Social, Endereço, CEP --}}
             <div id="step2" class="step-form hidden">
 
               <div class="mb-3">
@@ -84,12 +88,14 @@
                 <label for="full_address" class="form-label">Endereço Completo</label>
                 <input id="full_address" type="text" class="form-control" name="full_address" value="{{ old('full_address') }}" placeholder="Rua, Número - Bairro" required />
 
+                {{-- Campos ocultos para armazenar partes do endereço --}}
                 <input type="hidden" id="address" name="address">
                 <input type="hidden" id="neighborhood" name="neighborhood">
                 <input type="hidden" id="city" name="city">
                 <input type="hidden" id="state" name="state">
               </div>
 
+              {{-- Termos de uso e política de privacidade --}}
               @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
                 <div class="mb-3 form-check">
                   <input class="form-check-input" type="checkbox" name="terms" id="terms" required />
@@ -99,6 +105,7 @@
                 </div>
               @endif
 
+              {{-- Botões para voltar ou concluir o cadastro --}}
               <div class="d-flex justify-content-between">
                 <button type="button" class="btn btn-secondary" onclick="prevStep()">Voltar</button>
                 <button type="submit" class="btn text-white" style="background-color: #02afd0; border-color: #02afd0;">Cadastrar</button>
@@ -106,6 +113,7 @@
             </div>
           </form>
 
+          {{-- Link para tela de login --}}
           <p class="text-center mt-4">
             <span>Já tem uma conta?</span>
             <a href="{{ route('login') }}"><span>Faça Login</span></a>
@@ -116,6 +124,7 @@
   </div>
 
   <style>
+    /* Animação e visibilidade dos passos do formulário */
     .step-form {
       transition: opacity 0.5s ease, transform 0.5s ease;
     }
@@ -123,10 +132,11 @@
     .visible { opacity: 1; transform: translateX(0); pointer-events: auto; position: relative; }
   </style>
 
+  {{-- Máscaras de campos para CNPJ e CEP --}}
   <script src="https://cdnjs.cloudflare.com/ajax/libs/imask/6.4.3/imask.min.js"></script>
 
   <script>
-    // Password toggle
+    // Toggle de visibilidade da senha ao clicar no ícone
     document.querySelectorAll('.form-password-toggle .input-group-text').forEach(el => {
       el.addEventListener('click', function () {
         const input = this.previousElementSibling;
@@ -136,6 +146,7 @@
       });
     });
 
+    // Avança para o passo 2 do formulário após validação básica
     function nextStep() {
       const step1 = document.getElementById('step1');
       const step2 = document.getElementById('step2');
@@ -160,6 +171,7 @@
       step2.classList.add('visible');
     }
 
+    // Retorna ao passo 1 do formulário
     function prevStep() {
       document.getElementById('step2').classList.add('hidden');
       document.getElementById('step2').classList.remove('visible');
@@ -167,15 +179,18 @@
       document.getElementById('step1').classList.add('visible');
     }
 
+    // Máscaras automáticas para CNPJ e CEP
     IMask(document.getElementById('cnpj'), { mask: '00.000.000/0000-00' });
     IMask(document.getElementById('zipcode'), { mask: '00000-000' });
 
+    // Preenchimento automático da cidade e estado ao digitar o CEP
     const zipcodeInput = document.getElementById('zipcode');
     zipcodeInput.addEventListener('input', function () {
       const cep = zipcodeInput.value.replace(/\D/g, '');
       if (cep.length === 8) buscarCEP(cep);
     });
 
+    // Consulta viacep.com.br para obter cidade e estado
     function buscarCEP(cep) {
       const cepLoading = document.getElementById('cep-loading');
       const cepError = document.getElementById('cep-error');
@@ -205,6 +220,7 @@
         });
     }
 
+    // Validação final antes do envio do formulário
     document.getElementById('registerForm').addEventListener('submit', function(e) {
       const city = document.getElementById('city').value;
       const state = document.getElementById('state').value;
@@ -223,6 +239,7 @@
         return;
       }
 
+      // Divide o endereço em Rua, Número e Bairro
       const parts = fullAddress.split('-').map(part => part.trim());
 
       if (parts.length < 2) {
@@ -235,6 +252,7 @@
       document.getElementById('neighborhood').value = parts[1];
     });
 
+    // Máscara e consulta para CNPJ, preenchendo razão social automaticamente
     const cnpjInput = document.getElementById('cnpj');
     const loading = document.getElementById('cnpj-loading');
     const error = document.getElementById('cnpj-error');
@@ -247,6 +265,7 @@
       }
     });
 
+    // Consulta CNPJ em endpoint backend para obter razão social
     function buscarCNPJ(cnpj) {
       loading.style.display = 'block';
       error.style.display = 'none';

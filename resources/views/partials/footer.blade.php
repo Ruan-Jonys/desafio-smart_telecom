@@ -1,15 +1,18 @@
 @guest
-<!-- Footer -->
+<!-- Footer público, exibido para visitantes não autenticados -->
 <footer class="py-8 border-t" style="background-color: #113c44">
   <div class="container mx-auto max-w-6xl px-6 grid grid-cols-1 md:grid-cols-4 gap-8 text-gray-200">
   
-    <!-- Sobre -->
+    <!-- Sobre a empresa -->
     <div class="flex flex-col md:items-start items-start">
       <h4 class="font-semibold text-lg mb-4 text-[#02afd0]">Smart Telecom</h4>
-      <p class="text-sm">Gestão eficiente e simplificada para provedores de internet de todos os tamanhos. Conecte-se ao futuro com a nossa plataforma.</p>
+      <p class="text-sm">
+        Gestão eficiente e simplificada para provedores de internet de todos os tamanhos. 
+        Conecte-se ao futuro com a nossa plataforma.
+      </p>
     </div>
   
-    <!-- Links Rápidos -->
+    <!-- Links rápidos de navegação -->
     <div class="flex flex-col md:items-start items-start">
       <h4 class="font-semibold text-lg mb-4 text-[#02afd0]">Links</h4>
       <ul class="space-y-2 text-sm">
@@ -21,7 +24,7 @@
       </ul>
     </div>
   
-    <!-- Contato -->
+    <!-- Informações de contato -->
     <div class="flex flex-col md:items-start items-start">
       <h4 class="font-semibold text-lg mb-4 text-[#02afd0]">Contato</h4>
       <ul class="space-y-2 text-sm">
@@ -31,7 +34,7 @@
       </ul>
     </div>
   
-    <!-- Redes Sociais -->
+    <!-- Redes sociais -->
     <div class="flex flex-col md:items-start items-start">
       <h4 class="font-semibold text-lg mb-4 text-[#02afd0]">Siga-nos</h4>
       <div class="flex space-x-4">
@@ -43,6 +46,7 @@
   
   </div>
   
+  <!-- Rodapé final com direitos autorais -->
   <div class="mt-8 text-center text-xs text-gray-400">
     &copy; {{ date('Y') }} Smart Telecom. Todos os direitos reservados.
   </div>
@@ -50,6 +54,7 @@
 @endguest
 
 @auth
+<!-- Footer privado, exibido para usuários autenticados no painel -->
 <footer class="content-footer footer" style="background-color: #113c44; color: #cbd5e1;">
   <div class="container mx-auto px-6 py-4 flex flex-col md:flex-row items-center justify-between">
     <div class="mb-2 md:mb-0 text-sm">

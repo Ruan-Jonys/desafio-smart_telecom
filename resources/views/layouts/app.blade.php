@@ -14,53 +14,51 @@
         <!-- Favicon -->
         <link rel="icon" type="image/x-icon" href="/assets/img/favicon/favicon.ico" />
 
-        <!-- Fonts -->
+        <!-- Fonts (Bunny e Google Fonts) -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
 
-        <!-- Icon Fonts -->
+        <!-- Icon Fonts (Iconify e Bootstrap Icons) -->
         <link rel="stylesheet" href="/assets/vendor/fonts/iconify-icons.css" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" >
 
-        <!-- Core CSS -->
+        <!-- Core CSS do template e Demo -->
         <link rel="stylesheet" href="/assets/vendor/css/core.css" />
         <link rel="stylesheet" href="/assets/css/demo.css" />
 
         <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" >
 
-        <!-- Tailwind CSS -->
+        <!-- Tailwind CSS para utilitários e layouts (opcional, caso use Tailwind em componentes) -->
         <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
-        <!-- Vendor CSS -->
+        <!-- Vendor CSS (ex: scrollbar customizado) -->
         <link rel="stylesheet" href="/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
 
-        <!-- Laravel Vite Scripts -->
+        <!-- Laravel Vite Scripts (assets compilados do Laravel) -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-        <!-- Livewire Styles -->
+        <!-- Livewire Styles (se usar Livewire) -->
         @livewireStyles
 
-        <!-- Helpers JS -->
+        <!-- Helpers JS do template (deve vir após core styles) -->
         <script src="/assets/vendor/js/helpers.js"></script>
-
-        <!-- Config JS (Theme options, must come after core styles and helpers) -->
+        <!-- Configuração do tema -->
         <script src="/assets/js/config.js"></script>
 
-        <!-- DataTables -->
+        <!-- DataTables CSS e JS + Botões de exportação -->
         <link href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" >
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
         <link href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.bootstrap5.min.css" rel="stylesheet">
         <link href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 
         <style>
-            /* Botão de copiar */
+            /* Estilo dos botões de exportação do DataTables */
             div.dataTables_wrapper div.dt-buttons button.btn-copy {
                 background-color: #02afd0 !important;
                 color: white !important;
@@ -72,12 +70,9 @@
                 cursor: pointer !important;
                 transition: background-color 0.3s ease !important;
             }
-        
             div.dataTables_wrapper div.dt-buttons button.btn-copy:hover {
                 background-color: #029cb7 !important;
             }
-        
-            /* Botão de exportar para Excel */
             div.dataTables_wrapper div.dt-buttons button.btn-excel {
                 background-color: #198754 !important;
                 color: white !important;
@@ -89,12 +84,9 @@
                 cursor: pointer !important;
                 transition: background-color 0.3s ease !important;
             }
-        
             div.dataTables_wrapper div.dt-buttons button.btn-excel:hover {
                 background-color: #157347 !important;
             }
-        
-            /* Botão de exportar para PDF */
             div.dataTables_wrapper div.dt-buttons button.btn-pdf {
                 background-color: #dc3545 !important;
                 color: white !important;
@@ -105,30 +97,25 @@
                 cursor: pointer !important;
                 transition: background-color 0.3s ease !important;
             }
-        
             div.dataTables_wrapper div.dt-buttons button.btn-pdf:hover {
                 background-color: #bb2d3b !important;
             }
-        
-            /* Centraliza toda a paginação e deixa alinhado com a tabela */
+
+            /* Centralização e estilização dos botões de paginação do DataTables */
             .dataTables_wrapper .dataTables_paginate {
                 width: 100%;
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 margin-top: 1rem;
-                gap: 0; /* Remove espaçamento indesejado entre botões */
+                gap: 0;
             }
-        
-            /* Container dos botões de paginação */
             .dataTables_wrapper .dataTables_paginate span {
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 gap: 0;
             }
-        
-            /* Botões de paginação: quadrados com bordas arredondadas, menores e coloridos */
             .dataTables_wrapper .dataTables_paginate .paginate_button {
                 border-radius: 0.5rem !important;
                 background: #fff !important;
@@ -147,22 +134,16 @@
                 align-items: center;
                 box-shadow: 0 0 4px rgba(2, 175, 208, 0.08);
             }
-        
-            /* Estado ativo e hover dos botões de paginação */
             .dataTables_wrapper .dataTables_paginate .paginate_button.current,
             .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
                 background: #02afd0 !important;
                 color: #fff !important;
                 border: 2px solid #02afd0 !important;
             }
-        
-            /* Remove o fundo azul padrão do botão de navegação ao focar */
             .dataTables_wrapper .dataTables_paginate .paginate_button:focus {
                 outline: none !important;
                 box-shadow: 0 0 0 2px #02afd033 !important;
             }
-        
-            /* Centraliza as setas (ícones) da paginação */
             .dataTables_wrapper .dataTables_paginate .paginate_button i {
                 display: flex;
                 align-items: center;
@@ -180,7 +161,7 @@
         <x-banner />
 
         <div class="min-h-screen bg-gray-100">
-            {{-- @include('partials.menu-lateral') --}}
+            {{-- Menu de navegação --}}
             @include('partials.navigation-menu')
 
             <!-- Page Heading -->
@@ -194,15 +175,16 @@
 
             <!-- Page Content -->
             <main>
-                {{-- Components --}}
+                {{-- Componente slot --}}
                 @isset($slot)
                     {{ $slot }}
                 @endisset
 
-                {{-- Layouts --}}
+                {{-- Renderiza conteúdo das views Blade --}}
                 @yield('content')
             </main>
 
+            {{-- Rodapé global --}}
             @include('partials.footer')
         </div>
 
@@ -210,7 +192,7 @@
 
         @livewireScripts
             
-        <!-- Core JS -->
+        <!-- Core JS do template e bootstrap -->
         <script src="../assets/vendor/libs/jquery/jquery.js"></script>
         <script src="../assets/vendor/js/bootstrap.js"></script>
         <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
@@ -218,7 +200,7 @@
         <script src="../assets/js/main.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
-        <!-- DataTables -->
+        <!-- DataTables JS e botões de exportação -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
@@ -227,6 +209,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
         <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
         <script>
+            // Inicializa DataTables com botões de exportação e traduções para português
             $(document).ready(function () {
                 $('#datatables').DataTable({
                     pageLength: 10,

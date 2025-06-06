@@ -60,9 +60,9 @@
         <link href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css" rel="stylesheet">
 
         <style>
-            /* cores dos botões do DataTables */
+            /* Botão de copiar */
             div.dataTables_wrapper div.dt-buttons button.btn-copy {
-                background-color: #02afd0 !important; /* cor normal */
+                background-color: #02afd0 !important;
                 color: white !important;
                 font-weight: 600 !important;
                 padding: 0.5rem 1rem !important;
@@ -72,13 +72,14 @@
                 cursor: pointer !important;
                 transition: background-color 0.3s ease !important;
             }
-
+        
             div.dataTables_wrapper div.dt-buttons button.btn-copy:hover {
-                background-color: #029cb7 !important; /* cor hover */
+                background-color: #029cb7 !important;
             }
-
+        
+            /* Botão de exportar para Excel */
             div.dataTables_wrapper div.dt-buttons button.btn-excel {
-                background-color: #198754 !important; /* verde */
+                background-color: #198754 !important;
                 color: white !important;
                 font-weight: 600 !important;
                 padding: 0.5rem 1rem !important;
@@ -88,12 +89,14 @@
                 cursor: pointer !important;
                 transition: background-color 0.3s ease !important;
             }
+        
             div.dataTables_wrapper div.dt-buttons button.btn-excel:hover {
                 background-color: #157347 !important;
             }
         
+            /* Botão de exportar para PDF */
             div.dataTables_wrapper div.dt-buttons button.btn-pdf {
-                background-color: #dc3545 !important; /* vermelho */
+                background-color: #dc3545 !important;
                 color: white !important;
                 font-weight: 600 !important;
                 padding: 0.5rem 1rem !important;
@@ -102,11 +105,76 @@
                 cursor: pointer !important;
                 transition: background-color 0.3s ease !important;
             }
+        
             div.dataTables_wrapper div.dt-buttons button.btn-pdf:hover {
                 background-color: #bb2d3b !important;
             }
-        </style>        
         
+            /* Centraliza toda a paginação e deixa alinhado com a tabela */
+            .dataTables_wrapper .dataTables_paginate {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-top: 1rem;
+                gap: 0; /* Remove espaçamento indesejado entre botões */
+            }
+        
+            /* Container dos botões de paginação */
+            .dataTables_wrapper .dataTables_paginate span {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 0;
+            }
+        
+            /* Botões de paginação: quadrados com bordas arredondadas, menores e coloridos */
+            .dataTables_wrapper .dataTables_paginate .paginate_button {
+                border-radius: 0.5rem !important;
+                background: #fff !important;
+                color: #02afd0 !important;
+                border: 2px solid #02afd0 !important;
+                margin: 0 8px !important;
+                width: 36px;
+                height: 36px;
+                font-size: 1.2rem;
+                font-weight: bold;
+                text-align: center;
+                line-height: 32px;
+                transition: background 0.2s, color 0.2s;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                box-shadow: 0 0 4px rgba(2, 175, 208, 0.08);
+            }
+        
+            /* Estado ativo e hover dos botões de paginação */
+            .dataTables_wrapper .dataTables_paginate .paginate_button.current,
+            .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+                background: #02afd0 !important;
+                color: #fff !important;
+                border: 2px solid #02afd0 !important;
+            }
+        
+            /* Remove o fundo azul padrão do botão de navegação ao focar */
+            .dataTables_wrapper .dataTables_paginate .paginate_button:focus {
+                outline: none !important;
+                box-shadow: 0 0 0 2px #02afd033 !important;
+            }
+        
+            /* Centraliza as setas (ícones) da paginação */
+            .dataTables_wrapper .dataTables_paginate .paginate_button i {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0 auto;
+                font-size: 1em !important;
+                vertical-align: middle;
+                line-height: 1;
+                min-width: unset;
+                min-height: unset;
+            }
+        </style>              
     </head>
     <body class="layout-menu-fixed layout-compact font-sans antialiased">
         <x-banner />
@@ -163,6 +231,7 @@
                 $('#datatables').DataTable({
                     pageLength: 10,
                     dom: 'Bfrtip',
+                    pagingType: "simple_numbers",
                     buttons: [
                         { extend: 'copy', text: '<i class="bi bi-clipboard"></i> Copiar', className: 'btn-copy' },
                         { extend: 'excel', text: '<i class="bi bi-file-earmark-excel"></i> Excel', className: 'btn-excel' },
@@ -178,14 +247,12 @@
                         infoEmpty: "Mostrando 0 até 0 de 0 registros",
                         infoFiltered: "(filtrado de _MAX_ registros no total)",
                         paginate: {
-                            first: "Primeiro",
-                            previous: "Anterior",
-                            next: "Próximo",
-                            last: "Último"
+                            previous: "<i class='bi bi-chevron-left'></i>", 
+                            next: "<i class='bi bi-chevron-right'></i>" 
                         }
                     }
                 });
             });
-        </script>                      
+        </script>                   
     </body>
 </html>

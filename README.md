@@ -1,66 +1,129 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Smart Telecom — Sistema de Gestão para Provedores
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Projeto desenvolvido como desafio técnico: sistema web em Laravel para gestão de provedores de internet, com times, papéis, geração de contratos e administração avançada.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## ✨ Visão Geral
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+O sistema permite o cadastro, gerenciamento e administração de provedores de internet de forma segura, moderna e responsiva. Cada usuário pertence a um **time**, com permissões e acessos diferenciados (Owner, Membro, Convidado). O sistema contempla:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Cadastro de provedores com dados validados (CNPJ, endereço via CEP)
+- Gerenciamento de planos de internet por provedor/time
+- Dashboard administrativo com estatísticas, gráficos e DataTables
+- Controle de usuários, papéis e permissões por time
+- Geração de contratos fictícios em `.docx` (PHPWord)
+- Interface moderna baseada no template Sneat Free
+- Experiência do usuário aprimorada e responsiva
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 🚀 Funcionalidades
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- **Landing Page:** Apresentação da empresa, missão, visão, equipe, FAQ e contato.
+- **Autenticação:** Login, cadastro, redefinição de senha, validação de dados e integração com APIs BrasilAPI (CNPJ) e ViaCEP.
+- **Gestão de Times:** Isolamento dos dados por time, com papéis: Owner, Membro, Convidado.
+- **Planos de Internet:** CRUD de planos vinculado ao provedor/time autenticado, proteção por policies.
+- **Administração:** Dashboard exclusivo para administradores, gerenciamento global de usuários e planos, gráficos e DataTables.
+- **Geração de Contratos:** Formulário para geração de contrato de prestação de serviços (.docx), preenchido automaticamente.
+- **UX e Segurança:** Formulários com validação, feedback visual, mensagens claras e autenticação robusta.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+## 🛠️ Tecnologias e Bibliotecas
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- **Laravel** (versão mais recente)
+- **Jetstream** (Teams ativado)
+- **Livewire** (componentização reativa)
+- **Sneat Free** (template visual)
+- **PHPWord** (PhpOffice) — geração de contratos `.docx`
+- **BrasilAPI** — consulta CNPJ
+- **ViaCEP** — preenchimento automático de endereço
+- **TailwindCSS** & **Bootstrap** (layout responsivo)
+- **DataTables** (listagens dinâmicas/exportação)
+- **MySQL** ou **SQLite** (configurável)
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## ⚙️ Requisitos e Instalação
 
-## Contributing
+### Pré-requisitos
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- PHP >= 8.1
+- Composer
+- MySQL
+- Node.js e npm
 
-## Code of Conduct
+### Instalação
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+1. **Clone o repositório:**
+   ```bash
+   git clone https://github.com/Ruan-Jonys/desafio-smart_telecom.git
+   cd desafio-smart_telecom
+   ```
 
-## Security Vulnerabilities
+2. **Instale as dependências PHP:**
+   ```bash
+   composer install
+   ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+3. **Instale as dependências JS:**
+   ```bash
+   npm install
+   npm run build
+   ```
 
-## License
+4. **Configure o `.env`:**
+   - Copie `.env.example` para `.env` e ajuste as variáveis de banco, email e outros conforme seu ambiente.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+5. **Gere a chave da aplicação:**
+   ```bash
+   php artisan key:generate
+   ```
 
-## Tecnologias
-- Git e Github
-- BrasilApi (CNPJ)
-- Viacep
+6. **Rode as migrations e seeders:**
+   ```bash
+   php artisan migrate --seed
+   ```
+
+7. **Inicie o servidor:**
+   ```bash
+   php artisan serve
+   ```
+   Acesse: `http://localhost:8000`
+
+---
+
+## 👤 Usuários de Teste
+
+- **Admin**
+  - Email: `admin@empresa.com`
+  - Senha: `senha123`
+
+- **Provedor**
+  - Email: `test@example.com`
+  - Senha: `senha123`
+
+---
+
+## 📝 Observações e Boas Práticas
+
+- Isolamento total dos dados por time (cada provedor só vê seus planos)
+- Permissões controladas por policies e papéis
+- Integração real com APIs externas (CNPJ e CEP)
+- Uso de Livewire para experiência reativa
+- Segurança: validação back-end e front-end
+- Código limpo e organizado seguindo padrões Laravel
+- Layout responsivo e adaptado ao Sneat
+
+---
+
+## 📄 Licença
+
+Este projeto utiliza o [MIT License](https://opensource.org/licenses/MIT).
+
+---
+
+## 📫 Contato
+
+Em caso de dúvidas sobre o projeto, abra uma issue ou envie um email para [ruanjonys031207@gmail.com](mailto:ruanjonys031207@gmail.com).

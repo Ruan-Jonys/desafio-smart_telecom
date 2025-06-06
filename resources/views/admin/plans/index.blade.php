@@ -59,17 +59,15 @@
                             <i class="bi bi-pencil-fill text-lg"></i>
                         </button>
                 
-                        <form action="{{ route('admin.plans.destroy', $plan->id) }}" method="POST"
-                              onsubmit="return confirm('Tem certeza que deseja excluir este plano?');"
-                              class="inline-flex items-center justify-center m-0 p-0">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit"
-                                class="inline-flex items-center justify-center bg-red-500 hover:bg-red-600 text-white font-medium rounded shadow transition"
-                                style="width: 40px; height: 40px;">
-                                <i class="bi bi-trash-fill text-lg"></i>
-                            </button>
-                        </form>
+                        <button type="button"
+                            class="inline-flex items-center justify-center text-white font-semibold rounded-md transition"
+                            style="width: 40px; height: 40px; background-color: #dc3545;"
+                            title="Excluir"
+                            onclick="showConfirmToast({{ $plan->id }}, '{{ $plan->nome }}')"
+                            onmouseover="this.style.backgroundColor='#bb2d3b'"
+                            onmouseout="this.style.backgroundColor='#dc3545'">
+                            <i class="bi bi-trash-fill text-lg"></i>
+                        </button>
                     </div>
                 </td>
                 
@@ -83,30 +81,112 @@
 
 @endsection
 
+<!-- Toast de Confirmação -->
+<div class="toast-container position-fixed top-25 end-0 p-3" style="top: 20%; z-index: 1050;">
+    <div id="confirmToast" class="toast bg-white text-dark" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header bg-white text-dark">
+            <i class="bi bi-exclamation-triangle-fill me-2 text-danger"></i>
+            <strong class="me-auto px-2 py-1 rounded" style="background-color: #dc3545; color: #fff;">Confirmação</strong>
+            <button type="button" class="btn-close" onclick="hideConfirmToast()" aria-label="Fechar"></button>
+            </div>
+            <div class="toast-body">
+            <span id="confirmMessage"></span>
+            <div class="mt-2 d-flex justify-content-end">
+                <button type="button" class="btn btn-sm me-2" 
+                style="background-color: #02afd0; color: white; border: none;" 
+                onclick="hideConfirmToast()">Cancelar</button>        
+                <button type="button" class="btn btn-danger btn-sm" onclick="confirmDeletion()">Confirmar</button>
+            </div>
+        </div>
+    </div>
+</div>
+    
+<!-- Toast de Sucesso -->
+@if (session()->has('success'))
+<div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1050;">
+    <div class="toast align-items-center text-white bg-success border-0 show" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                <i class="bi bi-check-circle-fill me-2"></i>
+                {{ session('success') }}
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+@endif
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        // -------------------- MODAL DE EDIÇÃO --------------------
         var editPlanModal = document.getElementById('editPlanModal');
-        editPlanModal.addEventListener('show.bs.modal', function (event) {
-            var button = event.relatedTarget;
+        if (editPlanModal) {
+            editPlanModal.addEventListener('show.bs.modal', function (event) {
+                var button = event.relatedTarget;
 
-            // Pega os dados do botão
-            var id = button.getAttribute('data-id');
-            var nome = button.getAttribute('data-nome');
-            var descricao = button.getAttribute('data-descricao');
-            var velocidade = button.getAttribute('data-velocidade');
-            var preco = button.getAttribute('data-preco');
-            var status = button.getAttribute('data-status');
+                // Pega os dados do botão
+                var id = button.getAttribute('data-id');
+                var nome = button.getAttribute('data-nome');
+                var descricao = button.getAttribute('data-descricao');
+                var velocidade = button.getAttribute('data-velocidade');
+                var preco = button.getAttribute('data-preco');
+                var status = button.getAttribute('data-status');
 
-            // Preenche os campos do modal
-            editPlanModal.querySelector('#modalNome').value = nome;
-            editPlanModal.querySelector('#modalDescricao').value = descricao;
-            editPlanModal.querySelector('#modalVelocidade').value = velocidade;
-            editPlanModal.querySelector('#modalPreco').value = preco;
-            editPlanModal.querySelector('#modalStatus').value = status;
+                // Preenche os campos do modal
+                editPlanModal.querySelector('#modalNome').value = nome;
+                editPlanModal.querySelector('#modalDescricao').value = descricao;
+                editPlanModal.querySelector('#modalVelocidade').value = velocidade;
+                editPlanModal.querySelector('#modalPreco').value = preco;
+                editPlanModal.querySelector('#modalStatus').value = status;
 
-            // Ajusta a action do form para o ID correto
-            var form = editPlanModal.querySelector('#editPlanForm');
-            form.action = `/admin/plans/${id}`;
-        });
+                // Ajusta a action do form
+                var form = editPlanModal.querySelector('#editPlanForm');
+                form.action = `/admin/plans/${id}`;
+            });
+        }
     });
+
+    // -------------------- TOAST DE CONFIRMAÇÃO DE EXCLUSÃO --------------------
+    let deletePlanId = null;
+
+    function showConfirmToast(id, name) {
+        deletePlanId = id;
+        document.getElementById('confirmMessage').innerText = `Deseja excluir o plano "${name}"?`;
+
+        const toastEl = document.getElementById('confirmToast');
+        new bootstrap.Toast(toastEl).show();
+    }
+
+    function hideConfirmToast() {
+        const toastEl = document.getElementById('confirmToast');
+        const toast = bootstrap.Toast.getInstance(toastEl);
+        if (toast) {
+            toast.hide();
+        }
+    }
+
+    function confirmDeletion() {
+        hideConfirmToast();
+
+        // Cria e envia o formulário DELETE
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = `/admin/plans/${deletePlanId}`;
+
+        const token = document.createElement('input');
+        token.type = 'hidden';
+        token.name = '_token';
+        token.value = '{{ csrf_token() }}';
+
+        const method = document.createElement('input');
+        method.type = 'hidden';
+        method.name = '_method';
+        method.value = 'DELETE';
+
+        form.appendChild(token);
+        form.appendChild(method);
+
+        document.body.appendChild(form);
+        form.submit();
+    }
 </script>

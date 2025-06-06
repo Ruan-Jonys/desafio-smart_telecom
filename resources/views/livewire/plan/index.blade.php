@@ -1,19 +1,19 @@
 <div class="card m-5">
 
-    <!-- ALERTA FLUTUANTE -->
     @if (session()->has('message'))
-    <div 
-        class="alert alert-success alert-dismissible fade show d-flex align-items-center justify-content-between"
-        role="alert"
-        style="position: fixed; top: 20px; right: 20px; z-index: 1050; min-width: 250px;">
-        
-        <div class="d-flex align-items-center">
-            <i class="bi bi-check-circle-fill me-2"></i>
-            <span>{{ session('message') }}</span>
+<div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1050;">
+    <div class="toast align-items-center text-white bg-success border-0 show" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                <i class="bi bi-check-circle-fill me-2"></i>
+                {{ session('message') }}
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
     </div>
-    @endif
-    <!-- FIM ALERTA -->
+</div>
+@endif
+
 
     <div class="flex justify-between items-center px-4 pt-4">
         <h1 class="text-2xl font-bold">Planos de Internet</h1>
@@ -73,12 +73,14 @@
                                 <i class="bi bi-pencil-fill"></i>
                             </button>
 
+                            <!-- Botão Excluir -->
                             <button 
-                                onclick="if(confirm('Tem certeza que vai excluir o plano {{ $plan->nome }}?')) @this.call('delete', {{ $plan->id }})" 
-                                class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-3 rounded-md transition"
-                                title="Excluir">
-                                <i class="bi bi-trash-fill"></i>
+                            class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-3 rounded-md transition"
+                            title="Excluir"
+                            onclick="showConfirmToast({{ $plan->id }}, '{{ $plan->nome }}')">
+                            <i class="bi bi-trash-fill"></i>
                             </button>
+  
                         </td>
                     </tr>
                 @endforeach
@@ -87,4 +89,67 @@
     </div>
 
     @include('livewire.plan.modal')
+    <!-- Toast de Confirmação -->
+    <div class="toast-container position-fixed top-25 end-0 p-3" style="top: 20%; z-index: 1050;">
+        <div id="confirmToast" class="toast bg-white text-dark" role="alert" aria-live="assertive" aria-atomic="true">
+          <div class="toast-header bg-white text-dark">
+            <i class="bi bi-exclamation-triangle-fill me-2 text-danger"></i>
+            <strong class="me-auto px-2 py-1 rounded" style="background-color: #dc3545; color: #fff;">Confirmação</strong>
+            <button type="button" class="btn-close" onclick="hideConfirmToast()" aria-label="Fechar"></button>
+          </div>
+          <div class="toast-body">
+            <span id="confirmMessage"></span>
+            <div class="mt-2 d-flex justify-content-end">
+                <button type="button" class="btn btn-sm me-2" 
+                style="background-color: #02afd0; color: white; border: none;" 
+                onclick="hideConfirmToast()">Cancelar</button>        
+              <button type="button" class="btn btn-danger btn-sm" onclick="confirmDeletion()">Confirmar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      
+  
+  <!-- Toast de Sucesso -->
+  @if (session()->has('message'))
+<div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1050;">
+    <div class="toast align-items-center text-white bg-success border-0 show" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                <i class="bi bi-check-circle-fill me-2"></i>
+                {{ session('message') }}
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
 </div>
+@endif
+  
+<script>
+    let deletePlanId = null;
+
+    function showConfirmToast(id, name) {
+        deletePlanId = id;
+        document.getElementById('confirmMessage').innerText = `Deseja excluir o plano "${name}"?`;
+        
+        const toast = document.getElementById('confirmToast');
+        toast.classList.add('show');
+    }
+
+    function hideConfirmToast() {
+        const toast = document.getElementById('confirmToast');
+        toast.classList.remove('show');
+    }
+
+    function confirmDeletion() {
+        @this.call('delete', deletePlanId);
+        hideConfirmToast();
+
+        // Dá um delay para garantir que a exclusão foi processada
+        setTimeout(() => {
+            location.reload();
+        }, 500);
+    }
+
+</script>

@@ -13,14 +13,24 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->withPersonalTeam()->create();
-
-        // User::factory()->withPersonalTeam()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        //     'cnpj' => '12345678000199',
-        // ]);
-
+        // Chama o seeder específico para o admin principal
         $this->call(AdminUserSeeder::class);
+
+        // Cria 5 provedores com times
+        User::factory(5)->withPersonalTeam()->create([
+            'role' => 'provedor',
+        ]);
+
+        // Cria 4 admins com times
+        User::factory(4)->withPersonalTeam()->create([
+            'role' => 'admin',
+        ]);
+
+        // Usuário de teste fixo
+        User::factory()->withPersonalTeam()->create([
+            'name' => 'Test User',
+            'email' => 'test@example.com',
+            'role' => 'provedor',
+        ]);
     }
 }

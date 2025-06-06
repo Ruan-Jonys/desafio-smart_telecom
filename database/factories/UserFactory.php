@@ -30,12 +30,18 @@ class UserFactory extends Factory
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
-            'two_factor_secret' => null,
-            'two_factor_recovery_codes' => null,
-            'remember_token' => Str::random(10),
+            'role' => fake()->randomElement(['provedor', 'admin', 'membro', 'convidado']), // conforme seu modelo
+            'cnpj' => fake()->numerify('##.###.###/####-##'),
+            'address' => fake()->streetAddress(),
+            'neighborhood' => fake()->citySuffix(),
+            'zipcode' => substr($this->faker->postcode, 0, 8),
+            'city' => fake()->city(),
+            'state' => fake()->stateAbbr(),
+            'password' => static::$password ??= Hash::make('senha123'), // senha padrão
             'profile_photo_path' => null,
             'current_team_id' => null,
+            'remember_token' => Str::random(10),
+            'email_verified_at' => now(),
         ];
     }
 

@@ -6,12 +6,11 @@ Projeto desenvolvido como desafio técnico: sistema web em Laravel para gestão 
 
 ## ✨ Visão Geral
 
-O sistema permite o cadastro, gerenciamento e administração de provedores de internet de forma segura, moderna e responsiva. Cada usuário pertence a um **time**, com permissões e acessos diferenciados (Owner, Membro, Convidado). O sistema contempla:
+O sistema permite o cadastro, gerenciamento e administração de provedores de internet de forma segura, moderna e responsiva. Cada usuário pertence a um **time**. O sistema contempla:
 
 - Cadastro de provedores com dados validados (CNPJ, endereço via CEP)
 - Gerenciamento de planos de internet por provedor/time
 - Dashboard administrativo com estatísticas, gráficos e DataTables
-- Controle de usuários, papéis e permissões por time
 - Geração de contratos fictícios em `.docx` (PHPWord)
 - Interface moderna baseada no template Sneat Free
 - Experiência do usuário aprimorada e responsiva
@@ -22,7 +21,6 @@ O sistema permite o cadastro, gerenciamento e administração de provedores de i
 
 - **Landing Page:** Apresentação da empresa, missão, visão, equipe, FAQ e contato.
 - **Autenticação:** Login, cadastro, redefinição de senha, validação de dados e integração com APIs BrasilAPI (CNPJ) e ViaCEP.
-- **Gestão de Times:** Isolamento dos dados por time, com papéis: Owner, Membro, Convidado.
 - **Planos de Internet:** CRUD de planos vinculado ao provedor/time autenticado, proteção por policies.
 - **Administração:** Dashboard exclusivo para administradores, gerenciamento global de usuários e planos, gráficos e DataTables.
 - **Geração de Contratos:** Formulário para geração de contrato de prestação de serviços (.docx), preenchido automaticamente.
@@ -74,9 +72,23 @@ O sistema permite o cadastro, gerenciamento e administração de provedores de i
    ```
 
 4. **Configure o `.env`:**
-   - Copie `.env.example` para `.env` e ajuste as variáveis de banco, email e outros conforme seu ambiente.
+   - Copie `.env.example` para `.env`:
+     ```bash
+     cp .env.example .env
+     ```
+   - Preencha as variáveis de ambiente do MySQL conforme seu ambiente:
+     ```
+     DB_CONNECTION=mysql
+     DB_HOST=127.0.0.1
+     DB_PORT=3306
+     DB_DATABASE=laravel
+     DB_USERNAME=seu_usuario
+     DB_PASSWORD=sua_senha
+     ```
+   - Configure também variáveis de email, chave do app e outras, conforme necessário.
 
 5. **Rode as migrations e seeders:**
+   > O projeto já acompanha seeders completos com dados de exemplo e usuários de teste.
    ```bash
    php artisan migrate --seed
    ```
@@ -85,7 +97,8 @@ O sistema permite o cadastro, gerenciamento e administração de provedores de i
    ```bash
    php artisan serve
    ```
-   Acesse: `http://localhost:8000`
+   Acesse: [http://localhost:8000](http://localhost:8000)
+
 ---
 
 ## 👤 Usuários de Teste
@@ -109,6 +122,19 @@ O sistema permite o cadastro, gerenciamento e administração de provedores de i
 - Segurança: validação back-end e front-end
 - Código limpo e organizado seguindo padrões Laravel
 - Layout responsivo e adaptado ao Sneat
+
+---
+
+## 🗄️ Backup do Banco de Dados
+
+> **Observação importante:**  
+> Caso deseje restaurar o banco já populado manualmente, utilize o arquivo `dump.sql` presente na raiz do projeto:
+
+```bash
+mysql -u seu_usuario -p smart_telecom < dump.sql
+```
+- Certifique-se de que o banco de dados (`smart_telecom`) já existe e está vazio antes de importar.
+- Após importar, os usuários de teste estarão disponíveis normalmente.
 
 ---
 

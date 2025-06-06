@@ -76,22 +76,16 @@ O sistema permite o cadastro, gerenciamento e administração de provedores de i
 4. **Configure o `.env`:**
    - Copie `.env.example` para `.env` e ajuste as variáveis de banco, email e outros conforme seu ambiente.
 
-5. **Gere a chave da aplicação:**
-   ```bash
-   php artisan key:generate
-   ```
-
-6. **Rode as migrations e seeders:**
+5. **Rode as migrations e seeders:**
    ```bash
    php artisan migrate --seed
    ```
 
-7. **Inicie o servidor:**
+6. **Inicie o servidor:**
    ```bash
    php artisan serve
    ```
    Acesse: `http://localhost:8000`
-
 ---
 
 ## 👤 Usuários de Teste

@@ -85,8 +85,10 @@ O sistema permite o cadastro, gerenciamento e administração de provedores de i
      DB_USERNAME=seu_usuario
      DB_PASSWORD=sua_senha
      ```
-   - Configure também variáveis de email, chave do app e outras, conforme necessário.
-
+   - Gere a chave da aplicação:
+     ```
+     php artisan key:generate
+     ```
 5. **Rode as migrations e seeders:**
    > O projeto já acompanha seeders completos com dados de exemplo e usuários de teste.
    ```bash
